@@ -138,6 +138,7 @@ header#site-header {
     transform: none !important;
     position: relative !important;
     padding-left: 1.5rem !important;
+    width: 20%;
 }
 
 #site-navigation-wrap {
@@ -246,7 +247,7 @@ header#site-header {
     fill: #E4C5A9;
 }
 
-.custom-logo-link {
+.custom-logo-link_white {
     display: none;
 }
 
@@ -1139,6 +1140,17 @@ table tfoot tr:last-of-type th {
         width: 100% !important;
     }
 }
+
+@media only screen and (max-width: 1024px) { 
+    
+    .custom-logo-link_white {
+        display: block;
+    }
+
+    .custom-logo-link {
+        display: none;
+    }
+}
 @media only screen and (max-width: 767px)  {
     
     .order_details-content div {
@@ -1147,5 +1159,9 @@ table tfoot tr:last-of-type th {
 
     .woocommerce ul.order_details li {
         border: 0px solid;
+    }
+
+    #site-logo {
+        width: 47%;
     }
 }
