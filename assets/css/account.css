@@ -1,0 +1,359 @@
+body:not(.logged-in) #site-header {
+    background-color: white;
+}
+
+body:not(.logged-in) #site-logo .custom-logo-link_white {
+    display: flex;
+}
+
+#site-logo .custom-logo-link_white,
+body:not(.logged-in) #site-navigation-wrap,
+body:not(.logged-in) #footer .links_footer,
+body:not(.logged-in) #footer .copyright img,
+body:not(.logged-in) .oceanwp-mobile-menu-icon,
+body:not(.logged-in) form.woocommerce-product-search {
+    display: none !important;
+}
+
+.error {
+    color: #e80101 !important;
+}
+
+input:focus {
+    box-shadow: inset 0px -1px 0px 0px #626262;
+    -webkit-box-shadow: inset 0px -1px 0px 0px #626262;
+}
+
+#main .woocommerce {
+    width: 90%;
+    max-width: 1640px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    flex-direction: column;
+    min-height: 92vh;
+    margin: 0 auto !important;
+}
+
+.woocommerce .woocommerce-MyAccount-tabs {
+    display: none !important;
+}
+
+.woocommerce .woocommerce-MyAccount-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.woocommerce .woocommerce-MyAccount-content .woocommerce-notices-wrapper {
+    width: 100%;
+}
+
+body:not(.logged-in) .woocommerce form {
+    background-color: white;
+    padding: 60px 40px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.woocommerce .u-columns.col2-set {
+    display: flex;
+    align-self: stretch;
+}
+
+.woocommerce .u-columns.col2-set .u-column1.col-1,
+.woocommerce .u-columns.col2-set .u-column2.col-2 {
+    display: none;
+    align-items: center;
+    border: 0 !important;
+    padding: 0 !important;
+    justify-content: center;
+}
+
+.woocommerce .u-columns.col2-set .u-column1.col-1.active,
+.woocommerce .u-columns.col2-set .u-column2.col-2.active {
+    display: flex !important;
+    flex-direction: column;
+    max-width: 600px !important;
+    width: 100% !important;
+}
+
+.woocommerce .u-columns.col2-set .u-column1.col-1 form,
+.woocommerce .u-columns.col2-set .u-column2.col-2 form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.woocommerce form.woocommerce-form-login {
+    max-width: 480px;
+    width: 100%;
+}
+
+.woocommerce form.woocommerce-form-register {
+    max-width: 600px;
+    width: 100%;
+}
+
+.woocommerce form h2 {
+    width: 100%;
+    display: block !important;
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+body:not(.logged-in) .woocommerce form label:not(.error) {
+    display: none !important;
+}
+
+.woocommerce form input {
+    border: 0 !important;
+    border-bottom: 1px solid #A1A1A1 !important;
+    border-radius: 0 !important;
+}
+
+.woocommerce form .form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0 !important;
+}
+
+
+/* .woocommerce form .form-row select {
+    width: max-content;
+} */
+
+.woocommerce .form-row-first {
+    margin-right: 0;
+    width: 48% !important;
+}
+
+.woocommerce .form-row-last {
+    width: 48% !important;
+}
+
+.woocommerce .form-row-col input,
+.woocommerce .form-row-col select {
+    width: 48% !important;
+}
+
+.woocommerce form button.button {
+    width: auto !important;
+    padding: 0.75em 1.5625em !important;
+    text-transform: capitalize;
+    font-size: 1em;
+    font-weight: 400;
+    background-color: black;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    margin: 0 auto;
+}
+
+.woocommerce .woocommerce-form-login .woocommerce-LostPassword {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.woocommerce form .woocommerce-login_register {
+    text-align: center;
+    padding-top: 15px;
+    width: 100%;
+    margin: 0 auto !important;
+}
+
+form.register .form-row-hidden {
+    display: none;
+}
+
+form.register label {
+    display: none;
+    text-align: left;
+}
+
+form.register #woocommerce_privacy_policy_field label {
+    display: flex !important;
+    align-items: center;
+    margin: 0 !important;
+}
+
+form.register #woocommerce_privacy_policy_field label.checkbox {
+    flex-wrap: wrap;
+}
+
+form.register #woocommerce_privacy_policy_field label.error {
+    order: 2;
+}
+
+form.register #woocommerce_privacy_policy_field input {
+    order: 0;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    margin: 0 5px 0 0;
+    border: 1px solid #B1B1B1 !important;
+}
+
+form.register #woocommerce_privacy_policy_field input[type="checkbox"]:checked::before {
+    color: black;
+    font-size: 12px;
+    line-height: 5px;
+    width: 0px;
+}
+
+form.register #woocommerce_privacy_policy_field label span {
+    order: 1;
+    font-size: 10px;
+    width: calc(100% - 20px);
+    padding: 2% 4%;
+}
+
+form.register #woocommerce_privacy_policy_field abbr {
+    display: none;
+}
+
+body:not(.logged-in) form .form-row-button {
+    display: flex !important;
+    justify-content: center;
+}
+
+body:not(.logged-in) #footer-widgets {
+    display: none;
+}
+
+body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.logged-in) .woocommerce form.login .lost_password {
+    text-align: left !important;
+}
+
+.woocommerce-notices-wrapper {
+    padding: 5% 0;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    body {
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.25;
+    }
+    
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+    
+    table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+    
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+    
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    body.logged-in .woocommerce-MyAccount-content form .woocommerce-accounts-fields,
+    body.logged-in .woocommerce-MyAccount-content form .woocommerce-address-fields {
+        padding: 0 2.5em;
+    }
+    #main .woocommerce {
+        padding-top: 40px;
+    }
+    table {
+        border: 0;
+    }
+    
+    table caption {
+        font-size: 1.3em;
+    }
+    
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    
+    table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+    
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+    
+    table td::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-title);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    
+    table td:last-child {
+        border-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    body:not(.logged-in) #main .woocommerce form {
+        padding: 30px 20px;
+    }
+    body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col),
+    body:not(.logged-in) .woocommerce form.login .lost_password {
+        text-align: center;
+    }
+    body.logged-in .woocommerce-MyAccount-content form h3 {
+        padding: 1.25em 0.875em;
+    }
+    body.logged-in .woocommerce-MyAccount-content form .woocommerce-accounts-fields,
+    body.logged-in .woocommerce-MyAccount-content form .woocommerce-address-fields {
+        padding: 0 1.5em;
+    }
+    .woocommerce .form-row-col input {
+        width: 100% !important;
+    }
+    .woocommerce form .form-row select {
+        width: 100% !important;
+    }
+    .woocommerce .form-row-first,
+    .woocommerce .form-row-last {
+        width: 100% !important;
+    }
+}

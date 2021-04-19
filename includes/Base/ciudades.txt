@@ -1,0 +1,85 @@
+[
+  {
+    "value": "Anaco",
+    "text": "Anaco"
+  },
+  {
+    "value": "Barcelona",
+    "text": "Barcelona"
+  },
+  {
+    "value": "El Tigre",
+    "text": "El Tigre"
+  },
+  {
+    "value": "Lechería",
+    "text": "Lechería"
+  },
+  {
+    "value": "Puerto La Cruz",
+    "text": "Puerto La Cruz"
+  }
+]
+
+[
+  {
+    "value": "Carúpano",
+    "text": "Carúpano"
+  },
+  {
+    "value": "Cumaná",
+    "text": "Cumaná"
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

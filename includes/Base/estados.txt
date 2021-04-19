@@ -1,0 +1,279 @@
+[
+    {
+        "value": "AM",
+        "text": "Amazonas",
+        states: 
+    },
+    {
+        "value": "AN",
+        "text": "Anzoátegui",
+        states:  [
+                    {
+                        "value": "Anaco",
+                        "text": "Anaco"
+                    },
+                    {
+                        "value": "Barcelona",
+                        "text": "Barcelona"
+                    },
+                    {
+                        "value": "El Tigre",
+                        "text": "El Tigre"
+                    },
+                    {
+                        "value": "Lechería",
+                        "text": "Lechería"
+                    },
+                    {
+                        "value": "Puerto La Cruz",
+                        "text": "Puerto La Cruz"
+                    }
+                ]
+
+    },
+    {
+        "value": "AP",
+        "text": "Apure",
+        states: 
+    },
+    {
+        "value": "AR",
+        "text": "Aragua",
+        states: [
+                    {
+                        "value": "Cagua",
+                        "text": "Cagua"
+                    },
+                    {
+                        "value": "Maracay",
+                        "text": "Maracay"
+                    }
+                ]
+    },
+    {
+        "value": "BA",
+        "text": "Barinas",
+        states: [
+                    {
+                        "value": "Barinas",
+                        "text": "Barinas"
+                    }
+                ]
+    },
+    {
+        "value": "BO",
+        "text": "Bolívar",
+        states: [
+                    {
+                        "value": "Puerto Ordaz",
+                        "text": "Puerto Ordaz"
+                    }
+                ]
+    },
+    {
+        "value": "CA",
+        "text": "Carabobo",
+        states: [
+                    {
+                        "value": "Valencia",
+                        "text": "Valencia"
+                    }
+                ]
+    },
+    {
+        "value": "CO",
+        "text": "Cojedes",
+        states: 
+    },
+    {
+        "value": "DE",
+        "text": "Delta Amacuro",
+        states: 
+    },
+    {
+        "value": "DC",
+        "text": "Distrito Capital",
+        states: [
+                    {
+                        "value": "Caracas",
+                        "text": "Caracas"
+                    }
+                ]
+    },
+    {
+        "value": "FA",
+        "text": "Falcón",
+        states: [
+                    {
+                        "value": "Coro",
+                        "text": "Coro"
+                    },
+                    {
+                        "value": "Punto Fijo",
+                        "text": "Punto Fijo"
+                    }
+                ]
+    },
+    {
+        "value": "GU",
+        "text": "Guárico",
+        states: [
+                    {
+                        "value": "Calabozo",
+                        "text": "Calabozo"
+                    },
+                    {
+                        "value": "San Juan de los Morros",
+                        "text": "San Juan de los Morros"
+                    },
+                    {
+                        "value": "Valle de La Pascua",
+                        "text": "Valle de La Pascua"
+                    }
+                ]
+    },
+    {
+        "value": "LA",
+        "text": "Lara",
+        states: [
+                    {
+                        "value": "Barquisimeto",
+                        "text": "Barquisimeto"
+                    },
+                    {
+                        "value": "Cabudare",
+                        "text": "Cabudare"
+                    }
+                ]
+    },
+    {
+        "value": "LG",
+        "text": "La Guaira",
+        states: [
+                    {
+                        "value": "La Guaira",
+                        "text": "La Guaira"
+                    }
+                ]
+    },
+    {
+        "value": "ME",
+        "text": "Mérida",
+        states: [
+                    {
+                        "value": "Mérida",
+                        "text": "Mérida"
+                    }
+                ]
+    },
+    {
+        "value": "MI",
+        "text": "Miranda",
+        states: [
+                    {
+                        "value": "Altos Mirándinos",
+                        "text": "Altos Mirándinos"
+                    },
+                    {
+                        "value": "Charallave",
+                        "text": "Charallave"
+                    },
+                    {
+                        "value": "Santa Teresa",
+                        "text": "Santa Teresa"
+                    },
+                    {
+                        "value": "Guatire",
+                        "text": "Guatire"
+                    }
+                ] 
+    },
+    {
+        "value": "MO",
+        "text": "Monagas",
+        states: [
+                    {
+                        "value": "Maturín",
+                        "text": "Maturín"
+                    }
+                ]
+    },
+    {
+        "value": "NE",
+        "text": "Nueva Esparta",
+        states: [
+                    {
+                        "value": "Porlamar",
+                        "text": "Porlamar"
+                    }
+                ]
+    },
+    {
+        "value": "PO",
+        "text": "Portuguesa",
+        states: [
+                    {
+                        "value": "Acarigua",
+                        "text": "Acarigua"
+                    }
+                ]
+    },
+    {
+        "value": "SU",
+        "text": "Sucre",
+        states: [
+                    {
+                        "value": "Carúpano",
+                        "text": "Carúpano"
+                    },
+                    {
+                        "value": "Cumaná",
+                        "text": "Cumaná"
+                    }
+                ]
+    },
+    {
+        "value": "TA",
+        "text": "Táchira",
+        states: [
+                    {
+                        "value": "La Grita",
+                        "text": "La Grita"
+                    },
+                    {
+                        "value": "San Cristóbal",
+                        "text": "San Cristóbal"
+                    }
+                ]
+    },
+    {
+        "value": "TR",
+        "text": "Trujillo",
+        states: [
+                    {
+                        "value": "Valera",
+                        "text": "Valera"
+                    }
+                ]
+    },
+    {
+        "value": "YA",
+        "text": "Yaracuy",
+        states: [
+                    {
+                        "value": "San Felipe",
+                        "text": "San Felipe"
+                    }
+                ]
+    },
+    {
+        "value": "ZU",
+        "text": "Zulia",
+        states: [
+                    {
+                        "value": "Maracaibo",
+                        "text": "Maracaibo"
+                    }
+                ]
+    }
+]

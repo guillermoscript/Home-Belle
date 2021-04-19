@@ -1,0 +1,304 @@
+#primary {
+    display: flex;
+    justify-content: center;
+    padding-top: 7.5rem !important;
+    padding-bottom: 5rem !important;
+}
+
+.woocommerce-notices-wrapper {
+    padding-bottom: 5%;
+}
+
+#content {
+    max-width: 1640px;
+    width: 90%;
+}
+
+#content article {
+    padding: 0 7%;
+}
+
+.woocommerce-product-gallery ol {
+    padding: 1.5rem 0 !important;
+}
+
+.woocommerce-product-gallery ol img,
+.woocommerce-product-gallery .flex-viewport {
+    height: auto !important;
+    border-radius: 10px;
+}
+
+.woocommerce-product-gallery ol img {
+    max-width: 65px;
+}
+
+/* .woocommerce div.product .woocommerce-product-gallery.woocommerce-product-gallery--columns-4 .flex-control-thumbs li {
+    margin-right: 10px !important;
+} */
+
+.swiper-pagination-clickable .swiper-pagination-bullet {
+    margin: 0px 4px !important;
+}
+
+figure.woocommerce-product-gallery__wrapper {
+    display: flex;
+}
+
+.woocommerce div.product div.images {
+    max-width: 600px;
+}
+
+.woocommerce div.product div.summary {
+    margin-bottom: 0px !important;
+}
+
+h2.single-post-title {
+    font-size: 20px !important;
+    font-weight: 500;
+    color: #2B2B2B;
+    border: 0 !important;
+    margin: 0 !important;
+}
+
+.woocommerce div.product p.price {
+    display: flex;
+    color: #2B2B2B;
+    font-size: inherit;
+    margin: 0 !important;
+}
+
+.woocommerce div.product div.summary .price del {
+    order: 1;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+}
+
+.woocommerce div.product div.summary .price del .amount {
+    font-size: inherit;
+}
+
+.amount {
+    font-size: 1.5625rem;
+    font-weight: 700;
+}
+
+.variations .label,
+.theme-select,
+.reset_variations,
+.woocommerce-product-gallery__trigger,
+#review_form_wrapper {
+    display: none !important;
+}
+
+form.variations_form {
+    border: 0 !important;
+    margin: 0 !important;
+}
+
+.variations {
+    margin: 0 !important;
+}
+
+.variations .value {
+    border: 0 !important;
+}
+
+.stock.in-stock {
+    color: #0F9826;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 !important;
+}
+
+.woocommerce-variation-add-to-cart,
+form.cart {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 0 !important;
+}
+
+.quantity {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.quantity a {
+    display: none !important;
+}
+
+.quantity::before {
+    content: 'Cantidad:';
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+    padding-right: 10px;
+}
+
+.quantity input.qty,
+.quantity.qty_select select.qty {
+    border: 0;
+    width: 50px;
+    color: inherit;
+    font-size: 1rem;
+    text-align-last: center;
+    padding: 0 15px 0 0;
+    caret-color: #cb2c90;
+    -webkit-box-shadow: inset 0 -2px 0 0 #949499;
+    box-shadow: inset 0 -2px 0 0 #949499;
+}
+
+.quantity input.qty:hover,
+.quantity.qty_select select.qty:hover {
+    -webkit-box-shadow: inset 0 -2px 0 0 #000;
+    box-shadow: inset 0 -2px 0 0 #000;
+}
+
+.quantity input.qty:focus,
+.quantity.qty_select select.qty:focus {
+    -webkit-box-shadow: inset 0 -4px 0 0 #000;
+    box-shadow: inset 0 -4px 0 0 #000;
+}
+
+.quantity.qty_select i {
+    top: 50%;
+    right: 5px;
+    font-size: 12px;
+    position: absolute;
+    pointer-events: none;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+
+.quantity a {
+    display: none;
+}
+
+.quantity input {
+    text-align: center;
+    background-color: transparent;
+}
+
+.tinv-wishlist {
+    order: 1;
+    padding-bottom: .5rem;
+}
+
+button.button {
+    order: 2;
+    position: relative;
+    background-color: black !important;
+    padding: 1rem 2.5rem !important;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.woocommerce button.button.loading::after {
+    right: 20px;
+    position: absolute;
+}
+
+.woocommerce div.product .summary .added_to_cart {
+    order: 2;
+    font-size: 15px;
+    font-weight: 500;
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-left: 0;
+    text-transform: capitalize;
+    color: #757575;
+    padding-top: 7px;
+}
+
+.woocommerce div.product.owp-tabs-layout-section .panel#tab-description {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.woocommerce div.product.owp-tabs-layout-section .panel#tab-description,
+#tab-additional_information table {
+    padding-top: 2rem;
+}
+
+#tab-additional_information table {
+    padding-top: 2rem;
+    display: flex;
+    width: 100%;
+}
+
+#tab-additional_information table tbody,
+#tab-additional_information table tbody tr {
+    width: 100%;
+}
+
+#tab-additional_information table tbody tr {
+    display: flex;
+}
+
+#tab-additional_information table tr:nth-child(odd) {
+    background-color: rgba(238, 238, 238, .73);
+}
+
+#tab-additional_information table th,
+#tab-additional_information table td {
+    width: 50%;
+    border: 0;
+}
+
+.woocommerce-Tabs-panel--additional_information,
+.woocommerce-Tabs-panel--reviews {
+    margin: 0 !important;
+    padding-top: 40px;
+}
+
+.woocommerce div.product .woocommerce-tabs .panel h2:first-child {
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #707070;
+}
+
+.related.products .products_slide .swiper-container {
+    width: 100%;
+}
+
+.related.products .products_slide .woocommerce ul.products .product ul li.inner {
+    padding-top: 10px;
+}
+
+.related.products .products_slide .woocommerce ul.products .product ul li.inner .amount {
+    font-size: 1rem;
+}
+
+.related.products .products_slide .woocommerce ul.products .product ul li.inner,
+.related.products .products_slide .woocommerce ul.products .product ul li.btn-wrap {
+    display: flex;
+}
+
+.related.products .products_slide .woocommerce ul.products .product ul li.btn-wrap a.button {
+    display: none;
+}
+
+@media only screen and (min-width: 769px) {
+    .woocommerce div.product.owp-thumbs-layout-vertical div.images .flex-viewport {
+        margin: 0;
+    }
+    .woocommerce div.product.owp-thumbs-layout-vertical div.images .flex-control-thumbs {
+        position: absolute;
+        height: 100%;
+        overflow-y: scroll;
+    }
+}
+
+@media only screen and (min-width: 320px) {
+    
+    .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets{
+        bottom: 0%;
+    }
+}

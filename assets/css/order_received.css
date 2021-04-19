@@ -1,0 +1,237 @@
+.woocommerce {
+    display: flex;
+    justify-content: center;
+    padding: 4.375em 0;
+}
+
+.woocommerce-order {
+    width: 90%;
+    max-width: 1640px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.order_details {
+    width: 100%;
+    max-width: 1580px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2.5em;
+}
+
+.order_details-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 7.5%;
+    background-color: #AE0022;
+    border-radius: 10px 10px 0 0;
+}
+
+.order_details-title h2,
+.order_details-title span {
+    color: white;
+    font-weight: 500;
+    font-size: 1.5625em;
+}
+
+.order_details-content,
+.shop_table {
+    width: 100%;
+    padding: 0 7.5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    background-color: white;
+    color: black;
+    border-radius: 0 0 10px 10px;
+}
+
+.order_details-content h3 {
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.25em;
+    padding: 1.25em 0;
+}
+
+.order_details-content .order_details-col {
+    width: 50%;
+    font-weight: 500;
+    font-size: 1.25em;
+}
+
+.order_details-content .order_details-col:last-child {
+    text-align: right;
+}
+
+.order_details-content .order_details-col>* {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1em;
+}
+
+.order_details-content .order_details-col address {
+    max-width: 90%;
+    margin: 0 !important;
+}
+
+.order_details-content .order_details-col span:first-child {
+    font-weight: 400;
+}
+
+.shop_table-head {
+    display: flex;
+    width: 100%;
+    font-size: 1.25em;
+    font-weight: 500;
+    padding: 1.5em 0 0em;
+    text-transform: uppercase;
+}
+
+.shop_table .shop_table-body {
+    font-size: 1.125em;
+    border-bottom: 1px solid black;
+}
+
+.shop_table .order_item {
+    display: flex;
+    align-items: center;
+    padding: 0.625em 0 !important;
+    border-bottom: 0.25px solid #727272;
+}
+
+.shop_table .order_item:last-child {
+    border-bottom: 0;
+}
+
+.shop_table .product-name {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.shop_table .product-name * {
+    color: black;
+}
+
+.shop_table .product-name img {
+    width: 50px;
+    height: 50px;
+}
+
+.shop_table .product-name a {
+    width: calc(100% - 50px);
+    padding: 0 0.625em;
+}
+
+.shop_table .product-name .wc-item-meta li {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shop_table .product-name .wc-item-meta li .wc-item-meta-label {
+    padding-right: 8px;
+}
+
+.shop_table .product-qty {
+    width: 15%;
+    min-width: max-content;
+    padding: 0 0.625em;
+    text-align: center;
+}
+
+.shop_table .product-total {
+    width: 15%;
+    min-width: max-content;
+    padding-left: 0.625em;
+    text-align: right;
+}
+
+.shop_table .product-total * {
+    color: black;
+}
+
+.shop_table-footer {
+    width: 40%;
+    padding: 1.25em 0 !important;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.shop_table-footer li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop_table-footer li span {
+    width: 50%;
+    color: black;
+}
+
+.shop_table-footer li span * {
+    color: black;
+}
+
+.shop_table-footer li span:last-child {
+    text-align: right;
+}
+
+@media only screen and (max-width: 768px) {
+    .order_details-content .order_details-col {
+        width: 100%;
+    }
+    .order_details-content .order_details-col:last-child {
+        text-align: left;
+    }
+    .order_details-content .order_details-col address {
+        max-width: 100%;
+    }
+    .shop_table-head {
+        display: none;
+    }
+    .shop_table .order_item {
+        flex-wrap: wrap;
+    }
+    .shop_table .product-name {
+        width: 100%;
+    }
+    .shop_table .product-qty::before,
+    .shop_table .product-total::before {
+        content: attr(data-title)':';
+        font-size: 0.9375em;
+        padding-right: 6px;
+        font-weight: 600;
+    }
+    .shop_table-footer {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .order_details-title {
+        flex-direction: column;
+        text-align: center;
+    }
+    .shop_table-footer {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .shop_table .product-name {
+        flex-direction: column;
+    }
+    .shop_table .product-name img {
+        width: 150px;
+        height: 150px;
+    }
+    .shop_table .product-name {
+        flex-direction: column;
+    }
+    .shop_table-footer {
+        width: 100%;
+    }
+}

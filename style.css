@@ -1,0 +1,13 @@
+/*
+Theme Name: Home & Belle
+Theme URI: https://oceanwp.org/
+Description: OceanWP WordPress theme example child theme.
+Author: Oxoft
+Author URI: https://www.oxoft.io
+Template: oceanwp
+GitHub Theme URI: https://github.com/guillermoscript/home-belle
+Version: 1.0
+*/
+
+
+/* Parent stylesheet should be loaded from functions.php not using @import */
