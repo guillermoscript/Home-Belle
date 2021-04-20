@@ -22,6 +22,7 @@ class BillingController
             'required'    => true,
             'clear'       => false,
             'type'        => 'select',
+            'label' => __('Codigo Telefono', 'woocommerce'),
             'priority'        => 90,
             'class'     => array('form-row-first', 'widto-little'),
             'options'     => array(
@@ -85,11 +86,13 @@ class BillingController
             'required'    => true,
             'clear'       => false,
             'type'        => 'select',
+            'label' => __('Codigo Documento', 'woocommerce'),
             'priority'        => 100,
             'class'     => array('form-row-first', 'widto-little'),
             'options'     => array(
                 'option_1' => 'V-',
                 'option_2' => 'E-',
+                'option_3' => 'J-',
             )
         );    
         return $fields;

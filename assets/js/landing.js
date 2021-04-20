@@ -5,7 +5,7 @@ jQuery(window).ready(function() {
     jQuery('.products_slide > .woocommerce').append('<div class="swiper-scrollbar"></div>')
     const swiper = new Swiper('.slider_top.swiper-container', {
         slidesPerView: 1,
-        loop: true,
+        loop: false,
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,

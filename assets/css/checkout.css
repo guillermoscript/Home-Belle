@@ -7,18 +7,15 @@
 }
 
 .widto-little {
-    width: 14% !important;
-display: flex;
-align-items: end;
-padding-right: 0 !important;
+    width: 23% !important;
+    display: flex;
+    align-items: unset;
+    padding-right: 0 !important;
+    flex-direction: column;
 }
 
 #billing_phone_field, #billing_cid_field {
-    width: 82% !important;
-}
-
-#codigo_documento_field {
-    padding-left: 3% !important;
+    width: 70% !important;
 }
 
 .error {
@@ -330,6 +327,10 @@ form.checkout:not(.payment_method_bacs-custom) #total_orden {
     justify-content: space-around;
 }
 
+div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
+    display: none ;
+}
+
 .woocommerce-checkout #payment ul.payment_methods .wc_payment_method > label {
     border: 1px solid var(--disable);
 }
@@ -526,6 +527,20 @@ form.checkout:not(.payment_method_bacs-custom) #total_orden {
         width: 71% !important;
         margin: 5% auto !important;
     }
+
+    .widto-little {
+        padding: 3px 0 !important;
+        width: 50% !important;
+    }
+
+    #billing_phone_field, #billing_cid_field {
+        width: 50% !important;
+    }
+    .woocommerce .woocommerce-checkout #customer_details p.form-row label {
+        font-size: 14px;
+    }
+    
+    
 }
 
 .chet {

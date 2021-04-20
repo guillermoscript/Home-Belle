@@ -28,7 +28,7 @@ if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
 			<h2 style="padding-bottom: 0.5rem;">0 artículos en su carrito</h2>
 			<p>¡Adelante, agrega algo!</p>
 			<p style="padding-top: 5rem;text-align: center;padding-bottom: 0.5rem;">¿Tiene artículos en su carrito?</p>
-			<a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'myaccount' ) ) ); ?>" class="button" style="background-color: black;padding: 0.625rem 1.25rem;border-radius: 3px;font-weight: 500;font-size: 0.9375rem;text-transform: initial;color: white !important;margin: 0 auto !important;">Agregar productos</a>
+			<a href="<?php echo esc_url( home_url() ); ?>" class="button" style="background-color: black;padding: 0.625rem 1.25rem;border-radius: 3px;font-weight: 500;font-size: 0.9375rem;text-transform: initial;color: white !important;margin: 0 auto !important;">Agregar productos</a>
 			<div class="actions">
 				<button type="submit" class="button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 				<?php do_action( 'woocommerce_cart_actions' ); ?>

@@ -52,7 +52,8 @@ function controllerOfSteps() {
         #shipping_state`
         if (document.querySelector('#account_password')) {
             isNewUser = true
-            idOfPasswordAndEmail = `#billing_email, #account_password,`
+            idOfPasswordAndEmail = `#account_password,`
+            // idOfPasswordAndEmail = `#billing_email, #account_password,`
         }
 
         validate_billing(isNewUser)
@@ -105,6 +106,7 @@ function observerW() {
 
 function grabPriceOfBf() {
     document.querySelectorAll('.currency.hidden p')[1].innerText = document.getElementById('tasa-hoy').innerText.replace('\n','')
+    document.querySelectorAll('.total-bf p')[1].innerText = document.getElementById('precio-total').innerText.replace('\n','')
     // document.querySelectorAll('.currency.hidden p')[1].innerHTML.
     // document.querySelectorAll('.currency hidden p')[1].innerText = document.getElementById('precio-total').innerText
 }
@@ -151,12 +153,12 @@ jQuery(document).ready(function() {
 })
 
 function removeAndAddCssClassesToInputsToLookGood() {
-    const billEmail = document.getElementById('billing_email_field')
+    // const billEmail = document.getElementById('billing_email_field')
     const shippingState = document.getElementById('shipping_state_field')
     const shippingCity = document.getElementById('shipping_city_field')
     // const billingState = document.getElementById('billing_state_field')
     // const billingCity = document.getElementById('billing_city_field')
-    billEmail.classList.remove('form-row-wide')
+    // billEmail.classList.remove('form-row-wide')
     shippingState.classList.remove('form-row-wide')
     shippingCity.classList.remove('form-row-wide')
     // billingState.classList.remove('form-row-wide')
@@ -208,17 +210,17 @@ function validate_billing(isNewUser = false) {
             required: true,
             minlength: 8
         }
-        validationsObj.rules.billing_email = {
-                required: true,
-                email: true,
-        }
+        // validationsObj.rules.billing_email = {
+        //         required: true,
+        //         email: true,
+        // }
         validationsObj.messages.account_password = {
             required: 'su contraseña es requerida.',
             minlength: '8 caracteres minimo.'
         }
-        validationsObj.messages.billing_email = {
-            billing_email: 'Es requerido el email.',
-        }
+        // validationsObj.messages.billing_email = {
+        //     billing_email: 'Es requerido el email.',
+        // }
     }
     jQuery('form.checkout').validate(validationsObj)
 }
@@ -286,17 +288,17 @@ function validate_shipping(isNewUser = false) {
             required: true,
             minlength: 8
         }
-        validationObj.rules.billing_email = {
-                required: true,
-                email: true,
-        }
+        // validationObj.rules.billing_email = {
+        //         required: true,
+        //         email: true,
+        // }
         validationObj.messages.account_password = {
             required: 'su contraseña es requerida.',
             minlength: '8 caracteres minimo.'
         }
-        validationObj.messages.billing_email = {
-            billing_email: 'Es requerido el email.',
-        }
+        // validationObj.messages.billing_email = {
+        //     billing_email: 'Es requerido el email.',
+        // }
     }
     jQuery('form.checkout').validate(validationObj)
 }
@@ -321,151 +323,5 @@ function info_address() {
     }
     address += '.'
     jQuery('address').html(address)
-}
-
-function validate_vzla_transfer_mobile() {
-    jQuery('form.checkout').validate({
-        rules: {
-            bacs_way_to_pay: {
-                required: true
-            },
-            bacs_date: {
-                required: true,
-                date_asia: true,
-            },
-            bacs_receipt_number: {
-                required: true
-            },
-            bacs_bank_of_origin: {
-                required: true
-            },
-            bacs_destination_bank: {
-                required: true
-            },
-            bacs_upload: {
-                extension: 'jpg|png|pdf',
-                sizeFile: true
-            },
-        },
-        messages: {
-            bacs_way_to_pay: 'Por favor, seleccionar la forma de pago.',
-            bacs_date: {
-                required: 'Por favor, colocar la fecha de pago.',
-            },
-            bacs_receipt_number: 'El número de recibo es requerido.',
-            bacs_bank_of_origin: 'El banco de origen es requerido.',
-            bacs_destination_bank: 'El banco de destino es requerido.',
-            bacs_upload: {
-                extension: 'Solo se permiten archivos .jpg .png y .pdf.'
-            }
-        }
-    })
-}
-
-function validate_international_transfer() {
-    jQuery('form.checkout').validate({
-        rules: {
-            bacs_date: {
-                required: true,
-                date_asia: true,
-            },
-            bacs_receipt_number: {
-                required: true
-            },
-            bacs_bank_of_origin: {
-                required: true
-            },
-            bacs_destination_bank: {
-                required: true
-            },
-            bacs_upload: {
-                extension: 'jpg|png|pdf',
-                sizeFile: true
-            },
-        },
-        messages: {
-            bacs_date: {
-                required: 'Por favor, colocar la fecha de pago.',
-            },
-            bacs_receipt_number: 'El número de recibo es requerido.',
-            bacs_bank_of_origin: 'El banco de origen es requerido.',
-            bacs_destination_bank: 'El banco de destino es requerido.',
-            bacs_upload: {
-                extension: 'Solo se permiten archivos .jpg .png y .pdf.'
-            }
-        }
-    })
-}
-
-function keyDownNumeric(element) {
-    element.onkeydown = function(e) {
-        return IsNumeric(element, e.keyCode)
-    }
-}
-
-function IsNumeric(input, keyCode) {
-    let isShift = false;
-    if (keyCode == 16) {
-        isShift = true;
-    }
-    if (keyCode == 32) return false;
-    if (input.value.length > 9 && keyCode != 8) return false;
-
-    if (((keyCode >= 48 && keyCode <= 57) || keyCode == 8 || keyCode <= 37 || keyCode <= 39 || (keyCode >= 96 && keyCode <= 105)) && isShift == false) {
-        if ((input.value.length == 2 || input.value.length == 5) && keyCode != 8) {
-            input.value += '/';
-        }
-
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function check_digit(e, obj, intsize, deczize) {
-    var keycode;
-
-    if (window.event) keycode = window.event.keyCode;
-    else if (e) { keycode = e.which; } else { return true; }
-
-    var fieldval = (obj.value),
-        dots = fieldval.split(".").length;
-
-    if (keycode == 46) {
-        return dots <= 1;
-    }
-    if (keycode == 8 || keycode == 9 || keycode == 46 || keycode == 13) {
-        // back space, tab, delete, enter 
-        return true;
-    }
-    if ((keycode >= 32 && keycode <= 45) || keycode == 47 || (keycode >= 58 && keycode <= 127)) {
-        return false;
-    }
-    if (fieldval == "0" && keycode == 48) {
-        return false;
-    }
-    if (fieldval.indexOf(".") != -1) {
-        if (keycode == 46) {
-            return false;
-        }
-        var splitfield = fieldval.split(".");
-        if (splitfield[1].length >= deczize && keycode != 8 && keycode != 0)
-            return false;
-    } else if (fieldval.length >= intsize && keycode != 46) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-function s(e) {
-    if (e = e || t.event) {
-        var n = this || e.target || t,
-            r = n[C[e.type][f]];
-        if (r)
-            if (1 === r.length) y(r[0], n, e);
-            else
-                for (var i = r.slice(), o = 0; o < i.length && (!e || !0 !== e[z]); o++) y(i[o], n, e)
-    }
 }
 

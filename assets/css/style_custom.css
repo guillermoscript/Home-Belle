@@ -138,7 +138,6 @@ header#site-header {
     transform: none !important;
     position: relative !important;
     padding-left: 1.5rem !important;
-    width: 20%;
 }
 
 #site-navigation-wrap {
@@ -1045,10 +1044,13 @@ ul.products li.product li.title a {
     }
 
     .woocommerce ul.products li.product .woo-entry-inner li:last-child {
-        padding: 0 .5rem;
+        padding: 0 .1rem;
     }
     .star-rating {
         font-size: .9em;
+    }
+    .woocommerce ul.products li.product .btn-wrap a.added_to_cart {
+        font-size: .7rem;
     }
 }
 

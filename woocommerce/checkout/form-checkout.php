@@ -57,7 +57,13 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 								?>
 							</p>
 						</li>
-						<?php add_filter( 'wc_price', 'my_custom_price_format', 10, 3 ); ?>
+						<li class="total-bf">
+							<p>Total Bs.S</p>
+							<p>
+							
+							</p>
+						</li>
+						<!-- <?php add_filter( 'wc_price', 'my_custom_price_format', 10, 3 ); ?> -->
 						<!-- <li class="cart-subtotal currency hidden">
 							<p><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></p>
 							<p><?php wc_cart_totals_subtotal_html(); ?></p>

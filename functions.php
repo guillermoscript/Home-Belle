@@ -433,6 +433,22 @@ function wpb_custom_billing_fields( $fields = array() ) {
 	unset($fields['billing_company']);
 	return $fields;
 }
+
+/**
+* This function is used for remove email field from the checkout
+* 
+* @name _custom_checkout_fields
+* @param array $address_fields  array of the address fields
+*/
+function remove_email( $address_fields ) {
+	if( is_user_logged_in() ) {
+		unset( $address_fields['billing']['billing_email'] );
+	}
+	return $address_fields;
+}
+add_filter( 'woocommerce_checkout_fields', 'remove_email' , PHP_INT_MAX );
+
+
 add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields_ek', 99 );
 // Remove some fields from billing form
 // Our hooked in function - $fields is passed via the filter!
