@@ -234,7 +234,10 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
     padding: 5% 0;
 }
 
-
+.woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions {
+    display: flex;
+    justify-content: space-between;
+}
 
 @media only screen and (max-width: 768px) {
     body {
@@ -305,7 +308,7 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
     table tr {
         border-bottom: 3px solid #ddd;
         display: block;
-        margin-bottom: .625em;
+        margin-bottom: 4% !important;
     }
     
     table td {
@@ -329,6 +332,16 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
     table td:last-child {
         border-bottom: 0;
     }
+
+    .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .woocommerce-orders-table__cell.woocommerce-orders-table__cell-order-actions a {
+        margin-bottom: 2% !important;
+    }
+
 }
 
 @media only screen and (max-width: 450px) {

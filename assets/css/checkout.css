@@ -367,6 +367,34 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 
 /* ------------------------------- FIN CAJA DE PAGOS --------------------------------- */
 
+
+
+
+
+
+
+/* ------------------------------- INICIO MY ORDER --------------------------------- */
+
+.woocommerce-checkout #order_review {
+    width: 100%;
+    padding: 5%;
+}
+
+.woocommerce-terms-and-conditions-wrapper {
+    padding: 2%;
+}
+
+.shop_table {
+    padding-bottom: 5%;
+}
+
+/* ------------------------------- FIN MY ORDER --------------------------------- */
+
+
+
+
+
+
 @media only screen and (max-width: 1441px) {
     .drop-tilte {
         padding: 20px 10px 0px;

@@ -78,7 +78,7 @@ class Enqueue
 				'action' => 'move_wishlist'
 			) );
 		}
-		if(is_checkout() && !is_order_received_page()){
+		if ( is_checkout() && ! ( is_wc_endpoint_url( 'order-pay' ) || is_wc_endpoint_url( 'order-received' ) ) ) {
 			wp_enqueue_script( 'child-script_checkout', get_stylesheet_directory_uri() . '/assets/js/checkout.js', array( 'jquery' ), $version, true );	
 		}
 		if(is_account_page()){

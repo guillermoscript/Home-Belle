@@ -139,6 +139,8 @@ jQuery(document).ready(function() {
         return this.optional(element) || element.files[0].size / 1000000 < 1;
     }, "Tamaño maximo 1mb.");
 
+    document.querySelector('.col-1').append(document.querySelector('.caja-con-facturacion'))
+    
     info_address()
 
     jQuery('.select2-selection__arrow').html('<svg xmlns="http://www.w3.org/2000/svg" width="12.298" height="4.852" viewBox="0 0 12.298 4.852"><path id="Path_91" data-name="Path 91" d="M2888.061,400l5.65,3.831,6.1-3.831" transform="translate(-2887.781 -399.577)" fill="none" stroke="#707070" stroke-width="1"/></svg>')
@@ -146,6 +148,8 @@ jQuery(document).ready(function() {
     observerW()
 
     grabPriceOfBf()
+    // jQuery('#total_orden').prepend(jQuery('#type_shipping_field')[0])
+    
 
     document.querySelector('#step-3 .drop-cont-table.payment-cont').append(document.getElementById('payment'))
 
@@ -156,17 +160,17 @@ function removeAndAddCssClassesToInputsToLookGood() {
     // const billEmail = document.getElementById('billing_email_field')
     const shippingState = document.getElementById('shipping_state_field')
     const shippingCity = document.getElementById('shipping_city_field')
-    // const billingState = document.getElementById('billing_state_field')
-    // const billingCity = document.getElementById('billing_city_field')
+    const billingState = document.getElementById('billing_state_field')
+    const billingCity = document.getElementById('billing_city_field')
     // billEmail.classList.remove('form-row-wide')
     shippingState.classList.remove('form-row-wide')
     shippingCity.classList.remove('form-row-wide')
-    // billingState.classList.remove('form-row-wide')
-    // billingCity.classList.remove('form-row-wide')
+    billingState.classList.remove('form-row-wide')
+    billingCity.classList.remove('form-row-wide')
     shippingState.classList.add('form-row-first')
     shippingCity.classList.add('form-row-last')
-    // billingCity.classList.add('form-row-last')
-    // billingState.classList.add('form-row-first')
+    billingCity.classList.add('form-row-last')
+    billingState.classList.add('form-row-first')
 }
 
 function validate_billing(isNewUser = false) {
