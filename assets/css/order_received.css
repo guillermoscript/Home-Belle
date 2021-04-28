@@ -179,7 +179,7 @@
     text-align: right;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
     .order_details-content .order_details-col {
         width: 100%;
     }

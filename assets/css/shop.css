@@ -307,7 +307,10 @@
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
+    #image_header {
+        display: none;
+    }
     #main #content-wrap.container {
         width: 90% !important;
     }
@@ -320,6 +323,7 @@
     }
     .woocommerce .oceanwp-toolbar {
         display: flex;
+        padding: 55px 0 2em;
     }
     .content-area,
     .content-left-sidebar .content-area {

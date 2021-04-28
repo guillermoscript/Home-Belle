@@ -425,78 +425,11 @@ function add_class_image_gallery( $args ) {
 }
 
 
-add_filter('woocommerce_billing_fields','wpb_custom_billing_fields');
-// remove some fields from billing form
-// ref - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
-function wpb_custom_billing_fields( $fields = array() ) {
-
-	unset($fields['billing_company']);
-	return $fields;
-}
-
-/**
-* This function is used for remove email field from the checkout
-* 
-* @name _custom_checkout_fields
-* @param array $address_fields  array of the address fields
-*/
-function remove_email( $address_fields ) {
-	if( is_user_logged_in() ) {
-		unset( $address_fields['billing']['billing_email'] );
-	}
-	return $address_fields;
-}
-add_filter( 'woocommerce_checkout_fields', 'remove_email' , PHP_INT_MAX );
-
-
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields_ek', 99 );
-// Remove some fields from billing form
-// Our hooked in function - $fields is passed via the filter!
-// Get all the fields - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
-function custom_override_checkout_fields_ek( $fields ) {
-	unset($fields['shipping']['shipping_company']);
-	unset($fields['shipping']['shipping_address_2']);
-	unset($fields['shipping']['shipping_postcode']);
-	return $fields;
-}
-
-// Hook in
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
-
-// Our hooked in function - $fields is passed via the filter!
-function custom_override_checkout_fields( $fields ) {
-	// $fields['billing']['billing_company']['class'][0] = 'form-row-first';
-	$fields['billing']['billing_country']['class'][1] = 'form-row-first';
-	$fields['billing']['billing_phone']['class'][2] = 'form-row-first';
-	$fields['billing']['billing_email']['class'][1] = 'form-row-last';
-	$fields['billing']['billing_email']['priority'] = 130 ;
-	
-	
-	// $fields['shipping']['shipping_company']['class'][0] = 'form-row-first';
-	$fields['shipping']['shipping_country']['class'][0] = 'form-row-first';
-	$fields['shipping']['shipping_address_1']['class'][0] = 'form-row-first';
-	$fields['shipping']['shipping_city']['class'][1] = 'form-row-first';
-	$fields['shipping']['shipping_state']['class'][1] = 'form-row-last';
-
-	return $fields;
-}
-
-// Hook in
-add_filter( 'woocommerce_default_address_fields' , 'custom_override_default_address_fields' );
-
-// Our hooked in function - $address_fields is passed via the filter!
-function custom_override_default_address_fields( $address_fields ) {
-	$address_fields['address_1']['class'][0] = 'form-row-last';
-
-	return $address_fields;
-}
-
 add_action('template_redirect','check_if_logged_in');
 function check_if_logged_in()
 {
 	$pageid = get_option( 'woocommerce_checkout_page_id' );
-	if(!is_user_logged_in() && is_page($pageid))
-	{
+	if(!is_user_logged_in() && is_page($pageid)){
 		$url = add_query_arg(
 			'redirect_to',
 			get_permalink($pagid),
@@ -505,17 +438,15 @@ function check_if_logged_in()
 		wp_redirect($url);
 		exit;
 	}
-	if(is_user_logged_in())
-	{
-	if(is_page(get_option( 'woocommerce_myaccount_page_id' )))
-	{
-		
-		$redirect = $_GET['redirect_to'];
-		if (isset($redirect)) {
-		echo '<script>window.location.href = "'.$redirect.'";</script>';
-		}
+	if (is_user_logged_in()) {
+		if(is_page(get_option( 'woocommerce_myaccount_page_id' ))) {
+			
+			$redirect = $_GET['redirect_to'];
+			if (isset($redirect)) {
+				echo '<script>window.location.href = "'.$redirect.'";</script>';
+			}
 
-	}
+		}
 	}
 }
 
@@ -542,7 +473,22 @@ add_filter( 'woocommerce_cart_totals_coupon_html', 'filter_woocommerce_cart_tota
 
 // After registration, logout the user and redirect to home page
 function custom_registration_redirect() {
-    wp_logout();
+    // wp_logout();
     return home_url('/');
 }
 add_action('woocommerce_registration_redirect', 'custom_registration_redirect', 2);
+
+function my_woo_outofstock_text( $text ) {
+	$text = __( 'Agotado', 'oceanwp' );
+	return $text;
+}
+add_filter( 'ocean_woo_outofstock_text', 'my_woo_outofstock_text', 20 );
+
+
+/**
+ * Notify admin when a new customer account is created
+ */
+// add_action( 'woocommerce_created_customer', 'woocommerce_created_customer_admin_notification' );
+// function woocommerce_created_customer_admin_notification( $customer_id ) {
+//   wp_send_new_user_notifications( $customer_id, 'admin' );
+// }

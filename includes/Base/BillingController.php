@@ -12,6 +12,23 @@ class BillingController
 	{
 		add_filter( 'woocommerce_checkout_fields' , array($this,'add_custom_billing_info') ,PHP_INT_MAX);
         add_action( 'woocommerce_admin_order_data_after_shipping_address', array($this,'display_my_custom_billing_info'), 10, 1 );
+        
+        // Hook in
+        add_filter( 'woocommerce_default_address_fields' , [$this,'custom_override_default_address_fields'] );
+        
+        // Hook in
+        add_filter( 'woocommerce_checkout_fields' , [$this,'custom_override_checkout_fields'] );
+        add_filter( 'woocommerce_checkout_fields', [$this,'remove_email'] , PHP_INT_MAX );
+
+
+        add_filter( 'woocommerce_checkout_fields' , [$this,'custom_override_checkout_fields_ek'], 99 );
+        
+
+        add_filter('woocommerce_billing_fields', [$this,'wpb_custom_billing_fields']);
+
+        add_filter( 'woocommerce_order_formatted_billing_address' , [$this,'woo_reorder_billing_fields'], 10, 2 );
+        
+        
 	}
 
     public function add_custom_billing_info( $fields )
@@ -100,5 +117,90 @@ class BillingController
 
     public function display_my_custom_billing_info($order){
         echo '<p><strong>'.__('Phone From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_codigo_telefono', true ) . '</p>';
+    }
+
+
+    // Our hooked in function - $fields is passed via the filter!
+    function custom_override_checkout_fields( $fields ) {
+        // $fields['billing']['billing_company']['class'][0] = 'form-row-first';
+        $fields['billing']['billing_country']['class'][1] = 'form-row-first';
+        $fields['billing']['billing_phone']['class'][2] = 'form-row-first';
+        $fields['billing']['billing_email']['class'][1] = 'form-row-last';
+        $fields['billing']['billing_email']['priority'] = 130 ;
+
+        $fields['billing']['envios'] = array(
+            'required'    => false,
+            'clear'       => false,
+            'type'        => 'select',
+            'label'       => __('Compañias de envio (Cobro a destino)', 'woocommerce'),
+            'priority'    => 140,
+            'class'       => array('form-row-wide', 'envios','none'),
+            'options'     => array(
+                'envio_1' => 'MRW',
+                'envio_2' => 'Domesa',
+                'envio_3' => 'Zoom',
+                'envio_4' => 'Tealca',
+            )
+        );   
+        
+        // $fields['shipping']['shipping_company']['class'][0] = 'form-row-first';
+        $fields['shipping']['shipping_country']['class'][0] = 'form-row-first';
+        $fields['shipping']['shipping_address_1']['class'][0] = 'form-row-first';
+        $fields['shipping']['shipping_city']['class'][1] = 'form-row-first';
+        $fields['shipping']['shipping_state']['class'][1] = 'form-row-last';
+
+        return $fields;
+    }
+
+
+    // Our hooked in function - $address_fields is passed via the filter!
+    function custom_override_default_address_fields( $address_fields ) {
+        $address_fields['address_1']['class'][0] = 'form-row-last';
+
+        return $address_fields;
+    }
+
+    // remove some fields from billing form
+    // ref - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+    function wpb_custom_billing_fields( $fields = array() ) {
+
+        unset($fields['billing_company']);
+        return $fields;
+    }
+
+    /**
+    * This function is used for remove email field from the checkout
+    * 
+    * @name _custom_checkout_fields
+    * @param array $address_fields  array of the address fields
+    */
+    function remove_email( $address_fields ) {
+        if( is_user_logged_in() ) {
+            unset( $address_fields['billing']['billing_email'] );
+        }
+        return $address_fields;
+    }
+   // Remove some fields from billing form
+        // Our hooked in function - $fields is passed via the filter!
+        // Get all the fields - https://docs.woothemes.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/
+    function custom_override_checkout_fields_ek( $fields ) {
+        unset($fields['shipping']['shipping_company']);
+        unset($fields['shipping']['shipping_address_2']);
+        unset($fields['shipping']['shipping_postcode']);
+        return $fields;
+    }
+
+    function woo_reorder_billing_fields( $address, $wc_order ) {
+
+        $address = array(
+            'first_name'    => $wc_order->billing_first_name,
+            'last_name'     => $wc_order->billing_last_name,
+            'company'       => $wc_order->billing_company,
+            'country'       => $wc_order->billing_country,
+            'state'         => $wc_order->billing_state,
+            'city'          => $wc_order->billing_city,
+        );
+
+        return $address;
     }
 }

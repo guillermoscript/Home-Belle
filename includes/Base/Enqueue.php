@@ -34,7 +34,8 @@ class Enqueue
 			wp_enqueue_style( 'child-product', get_stylesheet_directory_uri() . '/assets/css/product.css', array( 'oceanwp-style' ), $version );
 			wp_enqueue_style( 'child-swiper', 'https://unpkg.com/swiper@6.3.5/swiper-bundle.min.css', array( 'oceanwp-style' ), $version );
 		}
-		if(is_cart()){
+		$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		if(is_cart() || $actual_link === home_url(  ) . '/wishlist/'){
 			wp_enqueue_style( 'child-cart', get_stylesheet_directory_uri() . '/assets/css/cart.css', array( 'oceanwp-style' ), $version );
 		}
 		if(is_account_page()){

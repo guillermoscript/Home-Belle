@@ -15,7 +15,7 @@
 }
 
 #billing_phone_field, #billing_cid_field {
-    width: 70% !important;
+    width: 73% !important;
 }
 
 .error {
@@ -363,6 +363,20 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#type_shipping_field {
+    border-top: 1px solid;
+    margin-top: 2% !important;
+    padding-top: 2%;
+}
+
+#type_shipping_field h4 {
+    font-size: .8rem;
+}
+
+#type_shipping_field div {
+    font-size: .7rem;
 }
 
 /* ------------------------------- FIN CAJA DE PAGOS --------------------------------- */

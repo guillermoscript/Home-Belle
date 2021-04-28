@@ -6,7 +6,6 @@ body:not(.logged-in) #site-logo .custom-logo-link_white {
     display: flex;
 }
 
-#site-logo .custom-logo-link_white,
 body:not(.logged-in) #site-navigation-wrap,
 body:not(.logged-in) #footer .links_footer,
 body:not(.logged-in) #footer .copyright img,
@@ -50,6 +49,7 @@ input:focus {
 
 .woocommerce .woocommerce-MyAccount-content .woocommerce-notices-wrapper {
     width: 100%;
+    padding: 2%;
 }
 
 body:not(.logged-in) .woocommerce form {
@@ -71,6 +71,11 @@ body:not(.logged-in) .woocommerce form {
     border: 0 !important;
     padding: 0 !important;
     justify-content: center;
+}
+
+div.u-columns.woocommerce-Addresses.col2-set.addresses .u-column1.col-1.woocommerce-Address,
+div.u-columns.woocommerce-Addresses.col2-set.addresses .u-column2.col-2.woocommerce-Address {
+    display: block ;
 }
 
 .woocommerce .u-columns.col2-set .u-column1.col-1.active,
@@ -239,7 +244,41 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
     justify-content: space-between;
 }
 
-@media only screen and (max-width: 768px) {
+
+/* ------------------------------------------------------- INICIO EDIT ACOUNT --------------------------------------------------------------------- */
+
+.woocommerce-EditAccountForm.edit-account {
+    width: 100%;
+}
+
+
+
+/* ------------------------------------------------------- FIN EDIT ACOUNT --------------------------------------------------------------------- */
+
+
+/* ------------------------------------------------------- INICIO EDIT ADDRESS --------------------------------------------------------------------- */
+.u-columns.woocommerce-Addresses.col2-set.addresses div{
+    width: 45%;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 18px;
+  }
+  
+  .u-columns.woocommerce-Addresses.col2-set.addresses {
+    justify-content: space-around;
+    padding-top: 3%;
+  }
+
+
+  .u-columns.woocommerce-Addresses.col2-set.addresses a {
+    background: #8b8887;
+    border-radius: 14px;
+    color: white;
+  }
+
+
+/* ------------------------------------------------------- FIN EDIT ADDRESS --------------------------------------------------------------------- */
+
+@media only screen and (max-width: 767px) {
     body {
         font-family: "Open Sans", sans-serif;
         line-height: 1.25;

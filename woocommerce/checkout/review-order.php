@@ -30,15 +30,6 @@ $type_shipping = WC()->session->get( 'type_shipping' );
 				<a href="#">Editar</a>
 			</div> -->
 			<div id="type_shipping_field" data-priority="">
-				<h4>Tipo de Envío</h4>
-				<!-- <p class="type_shipping">
-					<input type="radio" class="input-radio " value="air_shipment" name="type_shipping" id="type_shipping_air_shipment" <?php echo esc_attr((empty($type_shipping) || $type_shipping === 'air_shipment')? 'checked="checked"' : '') ?>>
-					<label for="type_shipping_air_shipment" class="radio ">Envío Aéreo</label>
-				</p>
-				<p class="type_shipping">
-					<input type="radio" class="input-radio " value="maritime_shipping" name="type_shipping" id="type_shipping_maritime_shipping" <?php echo esc_attr(($type_shipping === 'maritime_shipping')? 'checked="checked"' : '') ?>>
-					<label for="type_shipping_maritime_shipping" class="radio ">Envío Marítimo</label>
-				</p> -->
 				<?php wc_cart_totals_shipping_html(); ?>
 			</div>
 		</div>

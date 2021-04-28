@@ -93,6 +93,10 @@ function observerW() {
                     console.log('aaaaa');
                     controllerOfSteps()
                 }
+                
+            }
+            if (mutation.target === document.getElementById('place_order')) {
+                document.querySelector('#total_orden').appendChild(document.querySelector('#type_shipping_field'))
             }
         })      
     }
@@ -131,6 +135,8 @@ jQuery(document).ready(function() {
     //     }
     // })
 
+   
+
     jQuery.validator.addMethod("date_asia", function(value, element) {
         return this.optional(element) || /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/.test(value);
     }, "Por favor, colocar una fecha válida.");
@@ -147,11 +153,46 @@ jQuery(document).ready(function() {
 
     observerW()
 
+    jQuery(document).ajaxComplete(function(event,request, settings){
+
+        // Your code here
+        // if (document.getElementById('type_shipping_field')) {
+        //     document.getElementById('type_shipping_field').remove()
+        // }
+
+        // elimino los duplicados que puedna venir del ajax 
+        if (document.getElementById('type_shipping_field').children.length > 1) {
+            for (let i = 0; i < document.getElementById('type_shipping_field').children.length; i++) {
+                const element = document.getElementById('type_shipping_field').children[i];
+                element.remove()
+            }
+        }
+      
+        if (/type_shipping_field/ig.test(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])) {
+
+            // la respuesta del json la incrusto 
+            let mensaje =`Cobro a destino`
+            let typeOfShipping = jQuery(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])
+            jQuery('#type_shipping_field').append(typeOfShipping.find('#type_shipping_field').html())
+            // el duplicado lo remuevo
+            if (typeOfShipping.find('[data-title]')[0].innerText === mensaje) {
+                typeOfShipping.find('[data-title]')[0].innerText = `Selecciona una empeza de envio`
+                document.getElementById('envios_field').classList.remove('none')
+            } else {
+                document.getElementById('envios_field').classList.add('none')
+            }
+            
+            document.querySelector('#type_shipping_field > div').remove()
+        }
+        
+    });
+
+    document.querySelectorAll('.woocommerce-notices-wrapper')[0].remove()
+
     grabPriceOfBf()
-    // jQuery('#total_orden').prepend(jQuery('#type_shipping_field')[0])
-    
 
     document.querySelector('#step-3 .drop-cont-table.payment-cont').append(document.getElementById('payment'))
+    console.log('sss');
 
     removeAndAddCssClassesToInputsToLookGood()
 })
