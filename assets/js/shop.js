@@ -1,7 +1,7 @@
 jQuery(window).ready(function() {
 
     addIconToCategoryWidget(changeIconsOfCategoryWidget)
-    
+    moveFilterToSideBarOfMovile()
 
 });
 jQuery('.widget_price_filter #min_price').attr('placeholder', 'Monto Min.')
@@ -19,6 +19,14 @@ function addIconToCategoryWidget(callBack) {
         : div.children[0].insertAdjacentHTML('afterend','<i class="fas fa-plus pointer"></i>')
     }
     callBack()
+}
+
+function moveFilterToSideBarOfMovile() {
+    let content = document.getElementById('woocommerce_price_filter-3')
+    let filter = document.getElementById('woocommerce_product_categories-3')
+
+    document.querySelector('.oceanwp-off-canvas-sidebar').appendChild(filter)
+    document.querySelector('.oceanwp-off-canvas-sidebar').appendChild(content)
 }
 
 function changeIconsOfCategoryWidget() {    
@@ -70,6 +78,6 @@ function fadeIn(el, display) {
     })();
 };
 
-// jQuery('.widget_price_filter #min_price, .widget_price_filter #max_price').change(function() {
-//     jQuery(this).siblings('.button').click()
-// })
+jQuery('.widget_price_filter #min_price, .widget_price_filter #max_price').change(function() {
+    jQuery(this).siblings('.button').click()
+})

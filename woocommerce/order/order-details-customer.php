@@ -40,6 +40,44 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
 		<?php if ( $order->get_billing_email() ) : ?>
 			<p class="woocommerce-customer-details--email"><?php echo esc_html( $order->get_billing_email() ); ?></p>
 		<?php endif; ?>
+
+		<?php if ( get_post_meta( $order->get_id(), 'envios', true ) ) : ?>
+			<?php $envios_value = [ 
+				'' => 'Selecciona una empresa',
+				'envio_1' => 'MRW',
+				'envio_2' => 'Domesa',
+				'envio_3' => 'Zoom',
+				'envio_4' => 'Tealca',
+			];
+			if ($envios_value[get_post_meta( $order->get_id(), 'envios', true )] !== 'Selecciona una empresa') {
+				?>
+
+					<p class="woocommerce-customer-details--envio"><?php echo esc_html( $envios_value[get_post_meta( $order->get_id(), 'envios', true )] ); ?></p>
+				
+				<?php
+			}
+			
+			?>
+			
+		<?php endif; ?>
+
+		<?php if ( get_post_meta( $order->get_id(), 'retiro', true ) ) : ?>
+			<?php $retiro_value = [
+				'' => 'Selecciona una opcion',
+				'retiro_1' => 'Guick',
+				'retiro_2' => 'Oficina',
+			]; 
+			if ($retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] !== 'Selecciona una opcion') {
+				?>
+
+					<p class="woocommerce-customer-details--retiro"><?php echo esc_html( $retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] ); ?></p>
+				
+				<?php
+			}
+			
+			?>
+			
+		<?php endif; ?>
 	</address>
 
 	<?php if ( $show_shipping ) : ?>

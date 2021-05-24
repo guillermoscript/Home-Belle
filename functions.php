@@ -14,8 +14,6 @@
  *
  */
 
-use App\Base\EmailReciber;
-
 /**
  * Load the parent style.css file
  *
@@ -491,4 +489,38 @@ add_filter( 'ocean_woo_outofstock_text', 'my_woo_outofstock_text', 20 );
 // add_action( 'woocommerce_created_customer', 'woocommerce_created_customer_admin_notification' );
 // function woocommerce_created_customer_admin_notification( $customer_id ) {
 //   wp_send_new_user_notifications( $customer_id, 'admin' );
+// }
+// add_action( 'woocommerce_cart_calculate_fees', 'wpf_wc_add_cart_fees_by_customer_country' );
+// if ( ! function_exists( 'wpf_wc_add_cart_fees_by_customer_country' ) ) {
+//     /**
+//      * wpf_wc_add_cart_fees_by_customer_country.
+//      */
+//     function wpf_wc_add_cart_fees_by_customer_country( $cart ) {
+//         // You need to enter your fees here, in `country code` => `fee amount` format
+//         $fees = array(
+//             'Barcelona' => 3,
+//             'Lechería' => 2,
+//             'Guanta' => 5,
+//             'Puerto La Cruz' => 3,
+//         );
+//         // // Getting customer's country by IP
+//         // $location = ( class_exists( 'WC_Geolocation' ) ? WC_Geolocation::geolocate_ip() : array( 'country' => '' ) );
+//         // if ( empty( $location['country'] ) ) {
+//         //     // Base fallback
+//         //     $location = wc_format_country_state_string( apply_filters( 'woocommerce_customer_default_location', get_option( 'woocommerce_default_country' ) ) );
+//         // }
+//         // $customer_country = ( isset( $location['country'] ) ? $location['country'] : '' );
+//         // Applying fee (maybe)
+// 		$user_id = wp_get_current_user();
+// 		$customer_city = get_user_meta( $user_id, 'billing_city', true );
+// 		// var_dump($customer_city);
+// 		// $billing_city = WC()->customer->get_billing_city();	
+//         if ( ! empty( $fees[ $customer_city ] ) ) {
+//             $name      = 'Country fee (' . $customer_city . ')';
+//             $amount    = $fees[ $customer_city ];
+//             $taxable   = true;
+//             $tax_class = '';
+//             $cart->add_fee( $name, $amount, $taxable, $tax_class );
+//         }
+//     }
 // }

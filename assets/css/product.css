@@ -285,7 +285,8 @@ button.button {
     display: none;
 }
 
-@media only screen and (min-width: 769px) {
+
+@media only screen and (max-width: 600px) {
     .woocommerce div.product.owp-thumbs-layout-vertical div.images .flex-viewport {
         margin: 0;
     }
@@ -294,9 +295,24 @@ button.button {
         height: 100%;
         overflow-y: scroll;
     }
+
+    .woocommerce-notices-wrapper div {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        text-align: center !important;
+    }
+    
 }
 
-@media only screen and (min-width: 320px) {
+@media only screen and (max-width: 420px) {
+    
+    .woocommerce button.button.loading::after {
+        top: 36%;
+    }
+    
+}
+
+@media only screen and (max-width: 320px) {
     
     .swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets{
         bottom: 0%;

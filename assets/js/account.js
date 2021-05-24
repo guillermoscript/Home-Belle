@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
     }
 })
 jQuery(window).load(() => {
-    document.querySelector('form.login button[type=submit]').addEventListener('click',stopIt)
+    document.querySelector('form button[type=submit]').addEventListener('click',stopIt)
     document.querySelector('form.login button[type=submit]').addEventListener('click',() => {
         validate_login()
         document.querySelector('form.login button[type=submit]').removeEventListener('click',stopIt)

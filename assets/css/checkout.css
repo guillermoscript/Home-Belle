@@ -6,6 +6,13 @@
     --error: #e80101 !important;
 }
 
+.woocommerce > p {
+    min-height: 50vh;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
 .widto-little {
     width: 23% !important;
     display: flex;
@@ -15,7 +22,20 @@
 }
 
 #billing_phone_field, #billing_cid_field {
-    width: 73% !important;
+    width: 84% !important;
+    padding-left: 0%;
+}
+
+#codigo_telefono_field, #codigo_documento_field {
+    width: 12% !important;
+}
+
+#codigo_telefono_field label, #codigo_documento_field label{
+    transform: translateX(-50px);
+} 
+
+#billing_phone, #billing_cid {
+  width: 41%
 }
 
 .error {
@@ -75,6 +95,10 @@ a.button, #place_order {
     padding: 2% 2%;
 }
 
+.pencil-cont {
+    margin: 0 35% 0 auto !important;
+}
+
 .drop-circle {
     border-radius: 50%;
     border: 2px solid black;
@@ -111,7 +135,9 @@ div.drop-tilte {
 }
 
 
-
+#ship-to-different-address-checkbox {
+  border: 2px solid #848181;
+}
 
 form.checkout:not(.payment_method_bacs-custom) .list_product_orden {
     padding-bottom: 1.75em;
@@ -194,13 +220,16 @@ form.checkout:not(.payment_method_bacs-custom) .list_product_orden li .product-i
 
 
 
-
+#billing_city_field, #billing_state_field {
+    float: left;
+  width: 48%;
+}
 
 .total_orden_payment {
     position: absolute;
     top: 0;
-    right: 17%;
-    width: 21%;
+    right: 8%;
+    width: 25%;
     z-index: 9;
 }
 
@@ -286,7 +315,15 @@ form.checkout:not(.payment_method_bacs-custom) #total_orden {
     padding-top: 1.3125em;
 }
 
+p#retiro_field span , #envios_field span{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
 
+p#retiro_field label span {
+    display: none;
+}
 
 
 .address_button {
@@ -315,6 +352,9 @@ form.checkout:not(.payment_method_bacs-custom) #total_orden {
     margin: 2% 0% !important;
 }
 
+#ship-to-different-address label {
+  width: 32%;
+}
 
 /* ------------------------------- INICIO CAJA DE PAGOS --------------------------------- */
 
@@ -407,8 +447,6 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 
 
 
-
-
 @media only screen and (max-width: 1441px) {
     .drop-tilte {
         padding: 20px 10px 0px;
@@ -454,6 +492,25 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         font-size: 14px;
     }
 
+    #billing_phone_field, #billing_cid_field {
+        width: 75% !important;
+    }
+
+    #codigo_telefono_field, #codigo_documento_field {
+        width: 21% !important;
+    }
+	
+	#ship-to-different-address label {
+	  width: 90%;
+	}
+	
+	
+	#billing_phone, #billing_cid {
+	  width: 34%;
+	  font-size: 13px;
+	}
+    
+
 }
 
 @media only screen and (max-width: 767px)  {
@@ -488,6 +545,10 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         position:unset;
     }
 
+    #billing_city_field, #billing_state_field {
+        width: 100%;
+    }
+
     form.checkout:not(.payment_method_bacs-custom) #total_orden {
         border-radius: 10px;
     }
@@ -516,7 +577,7 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
     }
 
     #billing_phone_field, #billing_cid_field {
-        width: 65% !important;
+        width: 79% !important;
     }
 
     .widto-little {
@@ -526,6 +587,19 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
     .woocommerce-checkout .form-row.place-order {
         flex-direction: column;
     }
+
+    #type_shipping_field div {
+        font-size: .9rem;
+    } 
+
+	#billing_phone, #billing_cid {
+		  width: 100%;
+		  font-size: 14px;
+	}
+
+    /* #codigo_telefono_field, #codigo_documento_field {
+        width: 21% !important;
+    } */
 }
 
 @media only screen and (max-width: 420px)  {
@@ -546,6 +620,10 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         min-width: 65px;
         width: 65px;
     }
+	
+	#ship-to-different-address label {
+  width: unset;
+}
 
     .list_product_orden li .product-quantity,
     .list_product_orden li .product-total, 
@@ -575,9 +653,9 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         width: 50% !important;
     }
 
-    #billing_phone_field, #billing_cid_field {
+    /* #billing_phone_field, #billing_cid_field {
         width: 50% !important;
-    }
+    } */
     .woocommerce .woocommerce-checkout #customer_details p.form-row label {
         font-size: 14px;
     }

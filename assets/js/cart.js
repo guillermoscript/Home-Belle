@@ -6,7 +6,8 @@ jQuery(document).ready(function() {
     jQuery('div.woocommerce').on('change', '.qty', () => jQuery("[name='update_cart']").trigger("click"))
     update_button_qty()
     // document.querySelectorAll('.woocommerce-remove-coupon').forEach(e => e.innerText = 'X')
-    moveDivInMovile()
+    // moveDivInMovile()
+    // xd()
 })
 
 const update_button_qty = () => {

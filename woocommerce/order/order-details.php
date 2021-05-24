@@ -22,6 +22,18 @@ $order = wc_get_order( $order_id ); // phpcs:ignore WordPress.WP.GlobalVariables
 if ( ! $order ) {
 	return;
 }
+$retiro_value = [
+	'' => 'Selecciona una opcion',
+	'retiro_1' => 'Guick',
+	'retiro_2' => 'Oficina',
+];  
+$fees = array(
+	'Barcelona' => 3,
+	'Lechería' => 2,
+	'Guanta' => 5,
+	'Puerto La Cruz' => 3,
+);
+
 
 $order_items           = $order->get_items( apply_filters( 'woocommerce_purchase_order_item_types', 'line_item' ) );
 $show_purchase_note    = $order->has_status( apply_filters( 'woocommerce_purchase_note_order_statuses', array( 'completed', 'processing' ) ) );
@@ -85,12 +97,25 @@ if ( $show_downloads ) {
 				if ($total['label'] === "Método de pago:") {
 					continue;
 				}
-				?>
-					<tr>
-						<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
-						<td><?php echo ( 'payment_method' === $key ) ? esc_html( $total['value'] ) : wp_kses_post( $total['value'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
-					</tr>
+				if ($total['label'] === "Total:") {
+					if ($retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] === 'Guick' ) { 
+							$suma = floatval($order->get_total()) + floatval( $fees[$order->get_billing_city()]);
+							$total2 = number_format( floatval( $suma ),2  );
+						?>
+							<tr>
+								<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
+								<td><?php echo ( 'payment_method' === $key ) ? esc_html(  '$' . $total2 ) : wp_kses_post( '$' . $total2 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+							</tr>
+						<?php
+					} 
+				} else {
+					?>
+						<tr>
+							<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
+							<td><?php echo ( 'payment_method' === $key ) ? esc_html( $total['value'] ) : wp_kses_post( $total['value'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+						</tr>
 					<?php
+				}
 			}
 			?>
 			<?php if ( $order->get_customer_note() ) : ?>
@@ -98,6 +123,18 @@ if ( $show_downloads ) {
 					<th><?php esc_html_e( 'Note:', 'woocommerce' ); ?></th>
 					<td><?php echo wp_kses_post( nl2br( wptexturize( $order->get_customer_note() ) ) ); ?></td>
 				</tr>
+			<?php endif; ?>
+			<?php if ( get_post_meta( $order->get_id(), 'retiro', true ) ) : ?>
+				<?php 
+					if ($retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] === 'Guick' ) {
+						?>
+							<tr>
+								<th><?php echo ( 'Extra Por Envio Guick a ' . $order->get_billing_city() ); ?></th>
+								<td><?php echo  '$' . $fees[$order->get_billing_city()]; ?></td>
+							</tr>
+						<?php
+					}
+				?>
 			<?php endif; ?>
 		</tfoot>
 	</table>

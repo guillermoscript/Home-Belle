@@ -1,3 +1,7 @@
+div.woocommerce-address-fields__field-wrapper p#billing_address_1_field {
+    width: 100% ;
+}
+
 body:not(.logged-in) #site-header {
     background-color: white;
 }
@@ -72,7 +76,7 @@ body:not(.logged-in) .woocommerce form {
     padding: 0 !important;
     justify-content: center;
 }
-
+ 
 div.u-columns.woocommerce-Addresses.col2-set.addresses .u-column1.col-1.woocommerce-Address,
 div.u-columns.woocommerce-Addresses.col2-set.addresses .u-column2.col-2.woocommerce-Address {
     display: block ;
@@ -314,6 +318,14 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
         font-size: .85em;
         letter-spacing: .1em;
         text-transform: uppercase;
+    }
+
+    .u-columns.woocommerce-Addresses.col2-set.addresses div {
+        width: 100%;
+    }
+
+    .woocommerce-MyAccount-content .addresses .woocommerce-Address .title a {
+        top: 47px;
     }
 }
 

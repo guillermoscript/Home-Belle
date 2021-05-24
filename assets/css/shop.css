@@ -308,9 +308,9 @@
 }
 
 @media only screen and (max-width: 767px) {
-    #image_header {
+    #main #image_header {
         display: none;
-    }
+    }   
     #main #content-wrap.container {
         width: 90% !important;
     }
