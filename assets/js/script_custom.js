@@ -60,6 +60,12 @@ jQuery(document).ready(() => {
         jQuery('html').removeClass('noScroll')
     })
     jQuery('.sidr-class-customer-profile svg').click(help)
+    jQuery('.oceanwp-off-canvas-close').click(help)
+
+    document.querySelectorAll('.footer_col')[1].appendChild(document.getElementById('woocommerce_product_categories-5'))
+    document.querySelector('#woocommerce_product_categories-5 .widget-title').remove()
+    document.getElementById('woocommerce_product_categories-5').style.display = 'block'
+    
 })
 
 function help() {
