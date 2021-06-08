@@ -542,6 +542,11 @@ form.woocommerce-cart-form .tinv-wishlist {
     }
     .shop_table ._product .product-price {
         text-align: center;
+        flex-direction: column;
+    }
+
+    .product-price .woocommerce-Price-amount.amount {
+        padding-right: 4px;
     }
 
     .product-thumbnail {
@@ -552,6 +557,16 @@ form.woocommerce-cart-form .tinv-wishlist {
         font-size: .925rem;
     }
 
+    .shop_table .product-quantity .quantity.qty_select select.qty {
+        padding-left: calc(50% - 0.7rem);
+    }
+
+    .shop_table .product-quantity .quantity {
+        padding: 0 10%;
+    }
+    .shop_table .product-quantity .quantity.qty_select select.qty {
+        text-align: center;
+    }
     /* .product-name {
         padding-left: 5% !important;
     } */

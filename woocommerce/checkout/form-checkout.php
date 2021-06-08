@@ -55,7 +55,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							<p>
 								<?php
 								$convertion_rate = get_option('asiahs_currency');
-								echo esc_html('Bs ' . number_format($convertion_rate, 2, ',', '.'));
+								echo esc_html( number_format($convertion_rate, 2, ',', '.'));
 								?>
 							</p>
 						</li>
@@ -165,9 +165,9 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						</li>
 					</div>
 				</ul>
-				<div id="pencil-icon" class="pencil-cont">
+				<!-- <div id="pencil-icon" class="pencil-cont">
 					<i class="far fa-edit"></i>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="drop-cont-table flexx">

@@ -1,38 +1,125 @@
-function moveUserStepByStep(idToDisable, idToAble) {
-    const containerToBeDisable = document.getElementById(idToDisable)
+function moveUserStepByStep(idsToDisable, idToAble, callback) {
+    const [disableIdOne, disableIdTwo] = idsToDisable
+    const containerToBeDisableOne = document.getElementById(disableIdOne)
+    const containerToBeDisableTwo = document.getElementById(disableIdTwo)
     const containerToBeAble = document.getElementById(idToAble)
 
-    containerToBeDisable.children[1].classList.add('chet')
+    containerToBeDisableOne.children[1].classList.add('chet')
+    containerToBeDisableTwo.children[1].classList.add('chet')
     // containerToBeDisable.children[1].classList.remove('tehc')
     containerToBeAble.children[1].classList.remove('chet')
     // containerToBeAble.children[1].classList.add('tehc')
 
-    setTimeout(() => containerToBeDisable.children[1].classList.add('hiddenn'), 700)
-    containerToBeDisable.classList.add('drop-disable')
+    console.log('as');
+    setTimeout(() => {
+        containerToBeDisableOne.children[1].classList.add('hiddenn')
+        containerToBeDisableTwo.children[1].classList.add('hiddenn')
+    }, 700)
+    containerToBeDisableOne.classList.add('drop-disable')
+    containerToBeDisableTwo.classList.add('drop-disable')
     containerToBeAble.classList.remove('drop-disable')
 
     setTimeout(() => {
         containerToBeAble.children[1].classList.remove('hiddenn')
-        movePencilIcon(idToAble)
+        // console.log(callback);
+        callback()
     }, 700)
 }
 
-function movePencilIcon(idToAble) {
-    const whereToMoveIcon = document.querySelector('#' + idToAble + ' .drop-title-cont')
-    const icon = document.getElementById('pencil-icon')
+function movePencilIcon(idToDisable, id, itsGoingBack = false) {
+    console.log(idToDisable, id, 'saaaaaaaaaa');
+    // console.log(idToDisable, id, 'sadasd');
+    const whereToMoveIcon = document.querySelector('#' + idToDisable + ' .drop-tilte')
+    // const icon = document.getElementById('pencil-icon')
 
-    whereToMoveIcon.appendChild(icon)
+    whereToMoveIcon.insertAdjacentHTML('afterend', `
+        <div id="pencil-icon${id}" class="pencil-cont pencil${id}">
+            <p>Editar</p>
+        </div>
+    `)
+
+    if (itsGoingBack) document.getElementById('pencil-icon' + id).addEventListener('click', () => events[itsGoingBack]())
+}
+
+function removePencilIcon(step) {
+    console.log(document.querySelectorAll('#' + step + ' .pencil-cont'));
+
+    document.querySelector('#' + step + ' .pencil-cont').remove()
+    // for (let i = 0; i < document.querySelectorAll('#' + step + ' .pencil-cont').length; i++) {
+    //     const element = document.querySelectorAll('#' + step + ' .pencil-cont')[i];
+    //     element.remove()
+    //     if (i === document.querySelectorAll('#' + step + ' .pencil-cont').length - 1) {
+    //         break
+    //     }
+    // }
 }
 
 const events = {
-    continueStepTwo: () => moveUserStepByStep('step-1', 'step-2'),
-    backStepOne: () => moveUserStepByStep('step-2', 'step-1'),
-    moveStepTree: () => moveUserStepByStep('step-2', 'step-3'),
-    backStepTwo: () => moveUserStepByStep('step-3', 'step-2')
+    continueStepTwo: () => moveUserStepByStep(['step-1', 'step-3'], 'step-2', () => movePencilIcon('step-1', '1', 'backStepOne')),
+    backStepOne: () => moveUserStepByStep(['step-2', 'step-3'], 'step-1', () => removePencilIcon('step-1')),
+    moveStepTree: () => moveUserStepByStep(['step-2', 'step-1'], 'step-3', () => movePencilIcon('step-2', '2', 'backStepTwo')),
+    backStepTwo: () => moveUserStepByStep(['step-3', 'step-1'], 'step-2', () => removePencilIcon('step-2'))
 }
 
 function checkWhatStepIs(ev) {
     return events[ev.target.id]()
+}
+
+function thingsToDoBeforMoveStep(e) {
+    e.preventDefault()
+    if (document.getElementById('payment').classList.contains('none')) {
+        document.getElementById('payment').classList.remove('none')
+    }
+    jQuery('form.checkout').validate().destroy()
+    let isNewUser = false
+    let retiroIsDisable = false
+    let idOfRetiro = ''
+    let idOfPasswordAndEmail = ''
+    let idOfBillings = `#billing_first_name,
+    #billing_last_name,
+    #billing_address_1,
+    #billing_city,
+    #billing_state,
+    #billing_postcode,
+    #billing_phone`;
+    let idOfShippings = `#shipping_first_name,
+    #shipping_last_name,
+    #shipping_country,
+    #shipping_address_1,
+    #shipping_city,
+    #shipping_state`
+
+    document.getElementById('retiro').options[0].value = ''
+    document.getElementById('envios').options[0].value = ''
+    if (document.querySelector('#account_password')) {
+        isNewUser = true
+        idOfPasswordAndEmail = `#account_password,`
+        // idOfPasswordAndEmail = `#billing_email, #account_password,`
+    }
+    if (document.getElementById('retiro_field').classList.contains('none')) {
+        retiroIsDisable = true
+        idOfRetiro += `#envios, `
+    } else {
+        idOfRetiro += `#retiro, `
+    }
+
+    jQuery.validator.addMethod("require", function (value, element, arg) {
+        return arg !== value;
+    }, "Value must not equal arg.");
+
+
+    validate_billing(isNewUser, retiroIsDisable)
+    if (document.getElementById('ship-to-different-address-checkbox').checked) {
+        jQuery('form.checkout').validate().destroy()
+        validate_shipping(isNewUser)
+        if (jQuery(idOfPasswordAndEmail + idOfBillings + ',' + idOfShippings).valid()) {
+            checkWhatStepIs(e)
+        }
+    } else {
+        if (jQuery(idOfPasswordAndEmail + idOfRetiro + idOfBillings).valid()) {
+            checkWhatStepIs(e)
+        }
+    }
 }
 
 function controllerOfSteps() {
@@ -42,62 +129,7 @@ function controllerOfSteps() {
     const buttonBackStepTwo = document.getElementById('backStepTwo')
 
     buttonContinueToStepTwo.addEventListener('click', checkWhatStepIs)
-    buttonContinueToStepTree.addEventListener('click', e => {
-        e.preventDefault()
-        if (document.getElementById('payment').classList.contains('none')) {
-            document.getElementById('payment').classList.remove('none')
-        }
-        jQuery('form.checkout').validate().destroy()
-        let isNewUser = false
-        let retiroIsDisable = false
-        let idOfRetiro = ''
-        let idOfPasswordAndEmail = ''
-        let idOfBillings = `#billing_first_name,
-        #billing_last_name,
-        #billing_address_1,
-        #billing_city,
-        #billing_state,
-        #billing_postcode,
-        #billing_phone`;
-        let idOfShippings = `#shipping_first_name,
-        #shipping_last_name,
-        #shipping_country,
-        #shipping_address_1,
-        #shipping_city,
-        #shipping_state`
-
-        document.getElementById('retiro').options[0].value = ''
-        document.getElementById('envios').options[0].value = ''
-        if (document.querySelector('#account_password')) {
-            isNewUser = true
-            idOfPasswordAndEmail = `#account_password,`
-            // idOfPasswordAndEmail = `#billing_email, #account_password,`
-        }
-        if (document.getElementById('retiro_field').classList.contains('none')) {
-            retiroIsDisable = true
-            idOfRetiro += `#envios, `
-        } else {
-            idOfRetiro += `#retiro, `
-        }
-
-        jQuery.validator.addMethod("require", function (value, element, arg) {
-            return arg !== value;
-        }, "Value must not equal arg.");
-
-
-        validate_billing(isNewUser, retiroIsDisable)
-        if (document.getElementById('ship-to-different-address-checkbox').checked) {
-            jQuery('form.checkout').validate().destroy()
-            validate_shipping(isNewUser)
-            if (jQuery(idOfPasswordAndEmail + idOfBillings + ',' + idOfShippings).valid()) {
-                checkWhatStepIs(e)
-            }
-        } else {
-            if (jQuery(idOfPasswordAndEmail + idOfRetiro + idOfBillings).valid()) {
-                checkWhatStepIs(e)
-            }
-        }
-    })
+    buttonContinueToStepTree.addEventListener('click', thingsToDoBeforMoveStep)
     buttonBackToStepOne.addEventListener('click', checkWhatStepIs)
     buttonBackStepTwo.addEventListener('click', checkWhatStepIs)
 }
@@ -120,13 +152,22 @@ function observerW() {
             if (mutation.target === document.querySelector('.drop-cont-table.flexx')) {
                 if (mutation.addedNodes.length > 0) {
                     console.log('aaaaa');
+                    document.querySelector('#total_orden').insertBefore(document.querySelector('#type_shipping_field'), document.querySelector('#total_orden .order-total'))
+
                     controllerOfSteps()
                 }
 
             }
-            if (mutation.target === document.getElementById('place_order')) {
-                document.querySelector('#total_orden').insertBefore(document.querySelector('#type_shipping_field'), document.querySelector('#total_orden .order-total'))
-                // document.querySelector('#total_orden').appendChild(document.querySelector('#type_shipping_field'))
+            // if (mutation.target === document.getElementById('place_order')) {
+            //     document.querySelector('#total_orden').insertBefore(document.querySelector('#type_shipping_field'), document.querySelector('#total_orden .order-total'))
+            //     // document.querySelector('#total_orden').appendChild(document.querySelector('#type_shipping_field'))
+            // }
+            if (mutation.target === document.getElementById('select2-billing_city-container')) {
+                if (!document.getElementById('ui-bloq')) {
+                    document.querySelector('#step-2 .drop-cont-table').insertAdjacentHTML('beforeend', `
+                        <div id="ui-bloq" class="blockUI blockOverlay" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; opacity: 0.6; cursor: default; position: absolute;"></div>
+                    `)
+                }
             }
         })
     }
@@ -139,8 +180,8 @@ function observerW() {
 }
 
 function grabPriceOfBf() {
-    document.querySelectorAll('.currency.hidden p')[1].innerText = document.getElementById('tasa-hoy').innerText.replace('\n', '')
-    document.querySelectorAll('.total-bf p')[1].innerText = document.getElementById('precio-total').innerText.replace('\n', '')
+    document.querySelectorAll('.currency.hidden p')[1].innerText = document.getElementById('tasa-hoy').innerText.replace('\n', '').replace('Bs.S', '')
+    document.querySelectorAll('.total-bf p')[1].innerText = document.getElementById('precio-total').innerText.replace('\n', '').replace('Bs.S', '')
     TOTAL_BF = document.querySelector('#total_orden li.total-bf p:last-child').innerText
     // document.querySelectorAll('.currency.hidden p')[1].innerHTML.
     // document.querySelectorAll('.currency hidden p')[1].innerText = document.getElementById('precio-total').innerText
@@ -166,7 +207,9 @@ jQuery(document).ready(function () {
     //     }
     // })
 
-
+    // if (jQuery( window ).height() <= 598) {
+    //     document.querySelector('.woocommerce').style.height = "60vh"
+    // }
 
     jQuery.validator.addMethod("date_asia", function (value, element) {
         return this.optional(element) || /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/.test(value);
@@ -193,16 +236,23 @@ jQuery(document).ready(function () {
 
         // elimino los duplicados que puedna venir del ajax 
         if (document.getElementById('type_shipping_field').children.length > 1) {
+
             for (let i = 0; i < document.getElementById('type_shipping_field').children.length; i++) {
                 const element = document.getElementById('type_shipping_field').children[i];
                 element.remove()
             }
         }
 
+
         if (/type_shipping_field/ig.test(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])) {
 
+
+            if (document.getElementById('ui-bloq')) {
+                document.getElementById('ui-bloq').remove()
+            }
             // la respuesta del json la incrusto 
             let typeOfShipping = jQuery(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])
+            console.log(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"]);
             jQuery('#type_shipping_field').append(typeOfShipping.find('#type_shipping_field').html())
             // el duplicado lo remuevo
             console.log(typeOfShipping.find('[data-title]')[0].innerText.trim());
@@ -249,12 +299,29 @@ jQuery(document).ready(function () {
     removeAndAddCssClassesToInputsToLookGood()
 
 
-    changeSelect()
+    changeSelectControllerOfwhatTypeOfShippingIsForCitysThatAceptsGuick()
+    // addBlockquerToFormWhenCitysChange()
 })
+
+function addBlockquerToFormWhenCitysChange() {
+
+    let select = document.getElementById('billing_city')
+    console.log('asdasdasasaaaAAA');
+
+    select.addEventListener('change', e => {
+        console.log(e);
+        e.preventDefault()
+        console.log('object');
+        document.querySelector('#step-2 .drop-cont-table').insertAdjacentHTML('beforeend', `
+            <div id="ui-bloq" class="blockUI blockOverlay" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; opacity: 0.6; cursor: default; position: absolute;"></div>
+        `)
+    })
+
+}
 
 const TOTAL = document.querySelector('.order-total bdi').innerText
 let TOTAL_BF = document.querySelector('#total_orden li.total-bf p:last-child').innerText
-function changeSelect() {
+function changeSelectControllerOfwhatTypeOfShippingIsForCitysThatAceptsGuick() {
 
     let select = document.getElementById('retiro')
     const citys = {
@@ -291,7 +358,7 @@ function addShippingRateOfGuick(valueOfCity) {
     let cleanedRateBs = rate.replaceAll('.', '').replace(' BsS', '')
     let cleanedTotalBF = TOTAL_BF.replaceAll('.', '').replace(' BsS', '').replaceAll(',', '.')
     let valueOfCityInBf = parseFloat(valueOfCity) * parseFloat(cleanedRateBs)
-    console.log(cleanedRateBs, cleanedTotalBF, valueOfCityInBf);
+    // console.log(cleanedRateBs, cleanedTotalBF, valueOfCityInBf);
 
     let newTotalValueInDolars = parseFloat((parseFloat(valueOfCity) + parseFloat(total)).toFixed(2))
     let newTotalValueInBf = new Intl.NumberFormat("de-DE").format(parseFloat((parseFloat(cleanedTotalBF) + parseFloat(valueOfCityInBf)).toFixed(2)))

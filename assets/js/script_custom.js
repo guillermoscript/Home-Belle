@@ -62,9 +62,13 @@ jQuery(document).ready(() => {
     jQuery('.sidr-class-customer-profile svg').click(help)
     jQuery('.oceanwp-off-canvas-close').click(help)
 
-    document.querySelectorAll('.footer_col')[1].appendChild(document.getElementById('woocommerce_product_categories-5'))
+    document.querySelector('.footer_col').appendChild(document.getElementById('woocommerce_product_categories-5'))
     document.querySelector('#woocommerce_product_categories-5 .widget-title').remove()
     document.getElementById('woocommerce_product_categories-5').style.display = 'block'
+
+    // en el menu mobile pone el link
+    document.querySelectorAll('.sidr-class-menu-item')[document.querySelectorAll('.sidr-class-menu-item').length - 2].href = 'https://homeandbelle.com/privacy-policy/'
+    document.querySelectorAll('.sidr-class-menu-item')[document.querySelectorAll('.sidr-class-menu-item').length - 1].href = 'https://homeandbelle.com/privacy-policy/'
     
 })
 

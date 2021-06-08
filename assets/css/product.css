@@ -1,7 +1,7 @@
 #primary {
     display: flex;
     justify-content: center;
-    padding-top: 7.5rem !important;
+    padding-top: 4.5rem !important;
     padding-bottom: 5rem !important;
 }
 
@@ -82,12 +82,15 @@ h2.single-post-title {
     font-weight: 700;
 }
 
-.variations .label,
 .theme-select,
 .reset_variations,
 .woocommerce-product-gallery__trigger,
 #review_form_wrapper {
     display: none !important;
+}
+
+table th, table td.label {
+    border-bottom: 0px ;
 }
 
 form.variations_form {

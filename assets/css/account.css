@@ -35,7 +35,7 @@ input:focus {
     justify-content: center;
     padding: 40px 0;
     flex-direction: column;
-    min-height: 92vh;
+    
     margin: 0 auto !important;
 }
 
@@ -159,7 +159,8 @@ body:not(.logged-in) .woocommerce form label:not(.error) {
     font-weight: 400;
     background-color: black;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-    margin: 0 auto;
+    margin: 0 auto !important;
+    display: flex;
 }
 
 .woocommerce .woocommerce-form-login .woocommerce-LostPassword {
@@ -322,11 +323,22 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
 
     .u-columns.woocommerce-Addresses.col2-set.addresses div {
         width: 100%;
+		flex-direction:column;
+
     }
 
     .woocommerce-MyAccount-content .addresses .woocommerce-Address .title a {
         top: 47px;
     }
+	.u-columns.woocommerce-Addresses.col2-set.addresses{
+		flex-direction: column;
+	}
+	.u-column1.col-1.woocommerce-Address{
+		margin-bottom: 15px !important;
+	}
+	#main .woocommerce{
+		min-height: 92vh;
+	}
 }
 
 @media only screen and (max-width: 600px) {
@@ -420,4 +432,5 @@ body:not(.logged-in) .woocommerce form .form-row:not(.form-row-col), body:not(.l
     .woocommerce .form-row-last {
         width: 100% !important;
     }
+
 }

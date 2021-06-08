@@ -107,7 +107,14 @@ if ( $show_downloads ) {
 								<td><?php echo ( 'payment_method' === $key ) ? esc_html(  '$' . $total2 ) : wp_kses_post( '$' . $total2 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 							</tr>
 						<?php
-					} 
+					} else {
+						?>
+						<tr>
+							<th scope="row"><?php echo esc_html( $total['label'] ); ?></th>
+							<td><?php echo ( 'payment_method' === $key ) ? esc_html( $total['value'] ) : wp_kses_post( $total['value'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+						</tr>
+					<?php
+					}
 				} else {
 					?>
 						<tr>

@@ -30,9 +30,13 @@
     width: 12% !important;
 }
 
-#codigo_telefono_field label, #codigo_documento_field label{
-    transform: translateX(-50px);
-} 
+#codigo_telefono_field label abbr, #codigo_documento_field label abbr {
+    display: none;
+}
+
+#billing_phone_field label, #billing_cid_field label {
+    transform: translateX(-75px);
+}
 
 #billing_phone, #billing_cid {
   width: 41%
@@ -96,7 +100,15 @@ a.button, #place_order {
 }
 
 .pencil-cont {
-    margin: 0 35% 0 auto !important;
+    margin: 0 40% 0 auto !important;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.pencil-cont img {
+    width: 5%;
+    text-align: center;
 }
 
 .drop-circle {
@@ -128,6 +140,10 @@ div.drop-tilte {
 #step-1 .drop-cont-table, #step-2 .drop-cont-table {
     padding: 2%;
     margin-right: 34% !important;
+}
+
+#step-2 .drop-cont-table {
+    position: relative;
 }
 
 .flexx {
@@ -384,7 +400,7 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 }
 
 .woocommerce-checkout #payment ul.payment_methods li {
-    min-width: 20% !important;
+    min-width: 25% !important;
 }
 
 .woocommerce-checkout .form-row.place-order {
@@ -493,11 +509,12 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
     }
 
     #billing_phone_field, #billing_cid_field {
-        width: 75% !important;
+        width: 76% !important;
     }
 
     #codigo_telefono_field, #codigo_documento_field {
-        width: 21% !important;
+        width: 24% !important;
+        padding-left: 7px !important;
     }
 	
 	#ship-to-different-address label {
@@ -566,6 +583,18 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         margin: 0 21% !important;
     }
 
+        
+    .pencil-cont {
+        margin: unset !important;
+        width: 35%;
+        margin-left: auto !important;
+    }
+
+
+    .pencil-cont img {
+        width: 25%;
+    }
+
     .woocommerce-checkout .form-row.place-order {
         justify-content: center;
         flex-direction: column;
@@ -577,7 +606,7 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
     }
 
     #billing_phone_field, #billing_cid_field {
-        width: 79% !important;
+        width: 76% !important;
     }
 
     .widto-little {
@@ -596,6 +625,11 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 		  width: 100%;
 		  font-size: 14px;
 	}
+
+
+    #billing_phone_field label, #billing_cid_field label {
+        transform: translateX(-70px);
+    }
 
     /* #codigo_telefono_field, #codigo_documento_field {
         width: 21% !important;
