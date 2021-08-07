@@ -21,6 +21,16 @@
  * @link http://codex.wordpress.org/Child_Themes
  */
 
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/guillermoscript/Home-Belle/',
+	__FILE__,
+	'home&belle'
+);
+
+//Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('master');
+
 function oceanwp_child_enqueue_parent_style()
 {
 	$theme   = wp_get_theme('OceanWP');
