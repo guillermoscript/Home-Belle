@@ -10,23 +10,23 @@ class WordpressConfig
 {
 	public function __construct()
     {
-        remove_action( 'woocommerce_before_customer_login_form', array('OceanWP_WooCommerce_Config', 'oceanwp_login_wrap_before' ));
+        // remove_action( 'woocommerce_before_customer_login_form', array('OceanWP_WooCommerce_Config', 'oceanwp_login_wrap_before' ));
         
-        add_action( 'template_redirect', array($this, 'is404') );
+        // add_action( 'template_redirect', array($this, 'is404') );
         add_action( 'wp_logout',         array($this, 'logout_redirect'), 11);
         add_action( 'phpmailer_init',    array($this, 'send_smtp_email') );
 
-        add_action( 'comment_post',      array($this, 'add_custom_comment_field') );
+        // add_action( 'comment_post',      array($this, 'add_custom_comment_field') );
 
-        add_role( 'wholesaler', __( 'Wholesaler' ), array( 'read' => true, ));
+        // add_role( 'wholesaler', __( 'Wholesaler' ), array( 'read' => true, ));
     }
 
-    public function is404()
-    {
-        if ( is_404() ) {
-            wp_redirect( home_url() ); exit;
-        }
-    }
+    // public function is404()
+    // {
+    //     if ( is_404() ) {
+    //         wp_redirect( home_url() ); exit;
+    //     }
+    // }
 
     public function logout_redirect()
     {
@@ -34,9 +34,9 @@ class WordpressConfig
         exit;
     }
 
-    public function add_custom_comment_field( $comment_id ) {
-        add_comment_meta( $comment_id, 'order_id', $_POST['order_id'] );
-    }
+    // public function add_custom_comment_field( $comment_id ) {
+    //     add_comment_meta( $comment_id, 'order_id', $_POST['order_id'] );
+    // }
 
     public function send_smtp_email( $phpmailer ) {
         $phpmailer->isSMTP();

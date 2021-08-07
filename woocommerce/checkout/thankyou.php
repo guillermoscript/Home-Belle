@@ -37,29 +37,33 @@ defined( 'ABSPATH' ) || exit;
 		</p>
 		
 		<?php else : ?>
-			<section class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
+			<section class="woocommerce-order-overview woocommerce-thankyou-order-details order_details order-contain">
 				<div class="order_details-title">
 					<h2>Información de la Compra</h2>
 				<span>Orden - #<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				<p class="woocommerce-order-overview__date date">
+					<span><?php esc_html_e( 'Date', 'woocommerce' ); ?></span>
+					<span><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+				</p>
 				</div>
 				<div class="order_details-content">
 					<h3>INFORMACIÓN DEL CLIENTE</h3>
 					<div class="order_details-col">
 						<p class="woocommerce-order-overview__name name">
-							<span><?php echo esc_html( 'Nombre del Cliente' ); ?></span>
+						</p>
+							<span><?php echo esc_html( 'Nombre del Cliente:' ); ?></span>
 							<span><?php
 							$user = $order->get_user();
 							echo esc_html( $user->first_name . ' ' . $user->last_name );
 							?></span>
-						</p>
 						<?php if ( $order->get_billing_phone() ) : ?>
 							<p class="woocommerce-customer-details--phone">
-								<span><span><?php echo esc_html( 'Número de TLF.' ); ?></span></span>
+								<span><span><?php echo esc_html( 'Número de TLF: ' ); ?></span></span>
 								<span><?php echo esc_html( $order->get_billing_phone() ); ?></span>
 							</p>
 						<?php endif; ?>
 						<div class="woocommerce-order-overview__address adress">
-							<span><?php echo esc_html( 'Dirección de Envío' ); ?></span>
+							<span><?php echo esc_html( 'Dirección de Envío:' ); ?></span>
 							<address><?php echo esc_html( 
 								$order->get_formatted_billing_full_name() . ', ' .
 								$order->get_billing_country() . ', ' .
@@ -73,22 +77,28 @@ defined( 'ABSPATH' ) || exit;
 						</div>
 					</div>
 					<div class="order_details-col">
-						<p class="woocommerce-order-overview__order order">
+						<!-- <p class="woocommerce-order-overview__order order">
 							<span><?php esc_html_e( 'Order number', 'woocommerce' ); ?></span>
 							<span>#<?php echo $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-						</p>
-						<p class="woocommerce-order-overview__date date">
-							<span><?php esc_html_e( 'Date', 'woocommerce' ); ?></span>
-							<span><?php echo wc_format_datetime( $order->get_date_created() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-						</p>
-						<?php if ( $order->get_payment_method_title() ) : ?>
-							<p class="woocommerce-order-overview__payment-method method">
-								<span><?php esc_html_e( 'Método de Pago', 'woocommerce' ); ?></span>
-								<span><?php echo wp_kses_post( $order->get_payment_method_title() ); ?></span>
-							</p>
-						<?php endif; ?>
+						</p> -->
+						
 					</div>
 				</div>
+				<?php 
+					/**
+					 * Action hook fired after the order details.
+					 *
+					 * @since 4.4.0
+					 * @param WC_Order $order Order data.
+					 */
+					$show_customer_details = is_user_logged_in() && $order->get_user_id() === get_current_user_id();
+					do_action( 'woocommerce_after_order_details', $order );
+
+					if ( $show_customer_details ) {
+						wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) );
+					}
+
+				?>
 			</section>
 
 		<?php endif; ?>

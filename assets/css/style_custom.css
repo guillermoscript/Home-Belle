@@ -30,6 +30,10 @@ ul.woocommerce-error li::before {
     content: unset !important;
 }
 
+body.page-id-15 {
+    min-height: 100vh !important;
+}
+
 /* FIN GLOBAL UTILITYS */
 
 *,
@@ -65,9 +69,13 @@ body {
 
 ._container,
 .container {
-    width: 90%;
-    max-width: 1640px;
+    width: 96%;
+    max-width: 1920px;
     margin: 0 auto !important;
+}
+
+#site-logo #site-logo-inner a:hover img {
+    opacity: unset;
 }
 
 a:hover {
@@ -144,9 +152,9 @@ header#site-header {
 #site-logo {
     left: auto !important;
     transform: none !important;
-    width: 15%;
+    width: 19%;
     position: relative !important;
-    padding-left: 1.5rem !important;
+    padding-left: 1rem !important;
 }
 
 #site-navigation-wrap {
@@ -399,11 +407,19 @@ a.sidr-class-toggle-sidr-close.opened {
     background-color: #EEE9E7;
 }
 
-.sidr-class-customer-profile svg, .customer-profile svg {
+.sidr-class-customer-profile svg {
     margin-left: auto !important;
     margin-right: 15px !important;
 }
 
+
+.hmenu li:first-child {
+    display: none !important;
+}
+
+.customer-profile svg {
+    margin: 0 auto !important;
+}
 
 .sidr-class-customer-profile svg {
     margin-right: 15px !important;
@@ -630,6 +646,7 @@ body:not(.single-product) span.onsale {
 .woocommerce ul.products {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .woocommerce ul.products .product {
@@ -1050,6 +1067,10 @@ ul.products li.product li.title a {
     color: #745346 !important;
 }
 
+#copyright > a {
+    margin-left: 5px !important;
+}
+
 .widget_product_categories li a, .widget_layered_nav li a {
 	padding-left: 0px;
 }
@@ -1251,6 +1272,7 @@ ul.products li.product li.title a {
 
 .order_details-content h3 {
     width: 100%;
+    /* height: 0; */
 }
 
 .order_details-content div {
@@ -1262,7 +1284,7 @@ ul.products li.product li.title a {
 }
 
 .woocommerce-order-details {
-    padding: 2% 0%;
+    padding: 2% 23%;
 }
 
 .woocommerce-order-details h2 { 
@@ -1280,9 +1302,13 @@ ul.products li.product li.title a {
     border: 0px solid;
 }
 
+p.order-again {
+    text-align: center;
+}
+
 table:not(.shop_table.shop_table_responsive) tr:not(.cart-subtotal) th {
-	background-color: #aaa !important;
-    color: white !important;
+	background-color: transparent;
+    color: black !important;
 }
 
 .woocommerce-table__product-name.product-name {
@@ -1298,6 +1324,29 @@ table tfoot tr:last-of-type th {
     border-bottom: 0px;
 }
 
+.order-contain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.order-contain .order_details-title {
+    width: 100%;
+}
+
+.order-contain .order_details-content, .order-contain .woocommerce-customer-details{
+    width: 47%;
+}
+
+section.woocommerce-customer-details {
+    display: flex;
+    flex-direction: column;
+}
+
+section.woocommerce-customer-details > h2 , section.woocommerce-order-details > h2 , .order_details-title > h2{
+    text-transform: uppercase;
+}
+
 table.woocommerce-table.woocommerce-table--order-details.shop_table.order_details tfoot tr td span{
     color: #2B2B2B;
 }
@@ -1308,7 +1357,17 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
     color: #2B2B2B;
 }
 
+
+@media only screen and (min-width: 1441px) {
+   
+    #main {
+        min-height: 85vh;
+    }
+}
+
 @media only screen and (max-width: 1441px) {
+
+    
     .cont-img img {
         width: 100% !important;
     }
@@ -1330,6 +1389,10 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
         width: 100%;
     }
 
+    body {
+        overflow-x: hidden;
+    }
+
     .woocommerce ul.order_details li {
         border: 0px solid;
     }
@@ -1337,4 +1400,20 @@ table.woocommerce-table.woocommerce-table--order-details.shop_table.order_detail
     #site-logo {
         width: 47%;
     }
+    .order-contain .order_details-content, .order-contain .woocommerce-customer-details {
+        width: 100%;
+    }
+
+    /* .order_details-content h3 {
+        height: 100%;
+    } */
+
+    .woocommerce-order-details {
+        padding: 5% 0;
+    }
+
+    .custom-logo-link_white {
+        width: 135%;
+    }
+    
 }

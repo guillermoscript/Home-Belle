@@ -1,5 +1,5 @@
 div.woocommerce-address-fields__field-wrapper p#billing_address_1_field {
-    width: 100% ;
+    width: 100% !important;
 }
 
 body:not(.logged-in) #site-header {
@@ -8,6 +8,17 @@ body:not(.logged-in) #site-header {
 
 body:not(.logged-in) #site-logo .custom-logo-link_white {
     display: flex;
+}
+
+.login_form {
+    min-height: 83vh;
+    display: flex;
+}
+
+.woocommerce .lost_reset_password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 body:not(.logged-in) #site-navigation-wrap,
@@ -20,6 +31,10 @@ body:not(.logged-in) form.woocommerce-product-search {
 
 .error {
     color: #e80101 !important;
+}
+
+.wrap-100vh {
+    min-height: 60vh;
 }
 
 input:focus {
@@ -202,8 +217,8 @@ form.register #woocommerce_privacy_policy_field label.error {
 
 form.register #woocommerce_privacy_policy_field input {
     order: 0;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     min-width: 10px;
     margin: 0 5px 0 0;
     border: 1px solid #B1B1B1 !important;
@@ -211,8 +226,8 @@ form.register #woocommerce_privacy_policy_field input {
 
 form.register #woocommerce_privacy_policy_field input[type="checkbox"]:checked::before {
     color: black;
-    font-size: 12px;
-    line-height: 5px;
+    font-size: 15px;
+    line-height: 11px;
     width: 0px;
 }
 

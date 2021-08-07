@@ -42,7 +42,17 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 					</div>
 				</div>
 				<div class="drop-tilte">
-					<h3>Delivery y Opciones</h3>
+					<?php 
+						if (sizeof(WC()->cart->get_cart()) > 1) {
+							?>
+							<h3>Productos</h3>
+							<?php
+						} else {
+							?>
+							<h3>Producto</h3>
+							<?php
+						}
+					?>
 				</div>
 				<ul id="factuara" class="total_orden_payment">
 					<div id="total_orden">
@@ -51,7 +61,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							<p>$</p>
 						</li>
 						<li class="currency hidden">
-							<p>Tasa de cambio</p>
+							<p>Tasa de cambio BCV</p>
 							<p>
 								<?php
 								$convertion_rate = get_option('asiahs_currency');
@@ -60,7 +70,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							</p>
 						</li>
 						<li class="total-bf">
-							<p>Total Bs.S</p>
+							<p>Total BS</p>
 							<p>
 
 							</p>
@@ -77,7 +87,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 							</li>
 						<?php endforeach; ?> -->
 						<?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
-							<li class="woocommerce-shipping-totals shipping currency hidden">
+							<li class="woocommerce-shipping-totals shipping currency hidden none">
 								<?php do_action('woocommerce_review_order_before_shipping'); ?>
 								<?php wc_cart_totals_shipping_html(); ?>
 								<?php do_action('woocommerce_review_order_after_shipping'); ?>
@@ -126,7 +136,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 
 						<?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
 
-							<li class="woocommerce-shipping-totals shipping">
+							<li class="woocommerce-shipping-totals shipping none">
 								<?php do_action('woocommerce_review_order_before_shipping'); ?>
 								<?php wc_cart_totals_shipping_html(); ?>
 								<?php do_action('woocommerce_review_order_after_shipping'); ?>
@@ -194,7 +204,7 @@ if (!$checkout->is_registration_enabled() && $checkout->is_registration_required
 						</div>
 					</div>
 					<div class="drop-tilte">
-						<h3>Informacion De Pago</h3>
+						<h3>Información de envió</h3>
 					</div>
 				</div>
 

@@ -24,13 +24,15 @@ jQuery(document).ready(function() {
 })
 jQuery(window).load(() => {
     document.querySelector('form button[type=submit]').addEventListener('click',stopIt)
-    document.querySelector('form.login button[type=submit]').addEventListener('click',() => {
-        validate_login()
-        document.querySelector('form.login button[type=submit]').removeEventListener('click',stopIt)
-        document.querySelector('form.login button[type=submit]').click()
+    
+    if (document.querySelector('form.login button[type=submit]')) {
+        document.querySelector('form.login button[type=submit]').addEventListener('click',() => {
+            validate_login()
+            document.querySelector('form.login button[type=submit]').removeEventListener('click',stopIt)
+            document.querySelector('form.login button[type=submit]').click()
+        })
+    }
 
-
-    })
     jQuery('form.login input').keyup(function(e) {
         e.preventDefault()
         jQuery(this).siblings('label.error').html('')

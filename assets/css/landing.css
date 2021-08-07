@@ -100,10 +100,13 @@ article>div {
     width: 100%;
 }
 
-#featured_products ._container>.woocommerce ul.products .product {
-    width: 25%;
+#featured_products ._container  .woocommerce.columns-5 ul.products .product {
+    width: 33%;
 }
 
+#featured_products ._container  .woocommerce.columns-1 ul.products .product {
+    width: 20%;
+}
 
 /************************************************************************
 **                                                                     **
@@ -111,6 +114,25 @@ article>div {
 **                                                                     **
 ************************************************************************/
 
+/* -------------------------------------------------------------------------- */
+/*                                 Cateogires                                 */
+/* -------------------------------------------------------------------------- */
+
+.woocommerce-loop-category__title mark.count {
+    display: none !important;
+}
+
+.woocommerce ul.products li.product-category.product .woo-entry-inner a .woocommerce-loop-category__title {
+    font-weight: 400;
+}
+
+.products .product-category img {
+    margin: 0 auto !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 categories                                 */
+/* -------------------------------------------------------------------------- */
 
 /************************************************************************
 **                                                                     **
@@ -125,6 +147,22 @@ article>div {
 
 .new_collections ._container {
     flex-direction: column;
+    position: relative;
+}
+
+.see-more {
+    position: absolute;
+    bottom: 7%;
+    width: 180px;
+    text-align: center;
+}
+
+.see-more a {
+    padding: 6% 12%;
+    font-size: 1.125rem;
+    background-color: black;
+    text-transform: capitalize;
+    color: white;
 }
 
 .new_collections ._container>img {
@@ -166,6 +204,11 @@ article>div {
     }
     #featured_products ._container .bsp_categories .bsp_category:last-child svg {
         width: 26px;
+    }    
+
+    .see-more a {    
+        padding: 2% 6%;
+        font-size: .8rem;
     }
 }
 

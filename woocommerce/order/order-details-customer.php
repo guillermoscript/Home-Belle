@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Order Customer Details
  *
@@ -15,86 +16,94 @@
  * @version 3.4.4
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-$show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_address();
+$show_shipping = !wc_ship_to_billing_address_only() && $order->needs_shipping_address();
 ?>
 <section class="woocommerce-customer-details">
 
-	<?php if ( $show_shipping ) : ?>
+	<?php if ($show_shipping) : ?>
 
-	<section class="woocommerce-columns woocommerce-columns--2 woocommerce-columns--addresses col2-set addresses">
-		<div class="woocommerce-column woocommerce-column--1 woocommerce-column--billing-address col-1">
+		<section class="woocommerce-columns woocommerce-columns--2 woocommerce-columns--addresses col2-set addresses">
+			<div class="woocommerce-column woocommerce-column--1 woocommerce-column--billing-address col-1">
 
-	<?php endif; ?>
+			<?php endif; ?>
 
-	<h2 class="woocommerce-column__title"><?php esc_html_e( 'Billing address', 'woocommerce' ); ?></h2>
+			<h2 class="woocommerce-column__title">
+				<?php esc_html_e('Billing address', 'woocommerce'); ?>
+				<?php if ($order->get_payment_method_title()) : ?>
+					<p class="woocommerce-order-overview__payment-method method">
+						<span><?php esc_html_e('Método de Pago:', 'woocommerce'); ?></span>
+						<span><?php echo wp_kses_post($order->get_payment_method_title()); ?></span>
+					</p>
+				<?php endif; ?>
+			</h2>
 
-	<address>
-		<?php echo wp_kses_post( $order->get_formatted_billing_address( esc_html__( 'N/A', 'woocommerce' ) ) ); ?>
-
-		<?php if ( $order->get_billing_phone() ) : ?>
-			<p class="woocommerce-customer-details--phone"><?php echo esc_html( $order->get_billing_phone() ); ?></p>
-		<?php endif; ?>
-
-		<?php if ( $order->get_billing_email() ) : ?>
-			<p class="woocommerce-customer-details--email"><?php echo esc_html( $order->get_billing_email() ); ?></p>
-		<?php endif; ?>
-
-		<?php if ( get_post_meta( $order->get_id(), 'envios', true ) ) : ?>
-			<?php $envios_value = [ 
-				'' => 'Selecciona una empresa',
-				'envio_1' => 'MRW',
-				'envio_2' => 'Domesa',
-				'envio_3' => 'Zoom',
-				'envio_4' => 'Tealca',
-			];
-			if ($envios_value[get_post_meta( $order->get_id(), 'envios', true )] !== 'Selecciona una empresa') {
-				?>
-
-					<p class="woocommerce-customer-details--envio"><?php echo esc_html( $envios_value[get_post_meta( $order->get_id(), 'envios', true )] ); ?></p>
-				
-				<?php
-			}
-			
-			?>
-			
-		<?php endif; ?>
-
-		<?php if ( get_post_meta( $order->get_id(), 'retiro', true ) ) : ?>
-			<?php $retiro_value = [
-				'' => 'Selecciona una opcion',
-				'retiro_1' => 'Guick',
-				'retiro_2' => 'Oficina',
-			]; 
-			if ($retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] !== 'Selecciona una opcion') {
-				?>
-
-					<p class="woocommerce-customer-details--retiro"><?php echo esc_html( $retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] ); ?></p>
-				
-				<?php
-			}
-			
-			?>
-			
-		<?php endif; ?>
-	</address>
-
-	<?php if ( $show_shipping ) : ?>
-
-		</div><!-- /.col-1 -->
-
-		<div class="woocommerce-column woocommerce-column--2 woocommerce-column--shipping-address col-2">
-			<h2 class="woocommerce-column__title"><?php esc_html_e( 'Shipping address', 'woocommerce' ); ?></h2>
 			<address>
-				<?php echo wp_kses_post( $order->get_formatted_shipping_address( esc_html__( 'N/A', 'woocommerce' ) ) ); ?>
-			</address>
-		</div><!-- /.col-2 -->
+				<?php echo wp_kses_post($order->get_formatted_billing_address(esc_html__('N/A', 'woocommerce'))); ?>
 
-	</section><!-- /.col2-set -->
+				<?php if ($order->get_billing_phone()) : ?>
+					<p class="woocommerce-customer-details--phone"><?php echo esc_html($order->get_billing_phone()); ?></p>
+				<?php endif; ?>
+
+				<?php if ($order->get_billing_email()) : ?>
+					<p class="woocommerce-customer-details--email"><?php echo esc_html($order->get_billing_email()); ?></p>
+				<?php endif; ?>
+				<?php echo '<p>' . __('Cédula:') . ' ' . get_post_meta($order->get_id(), '_billing_cid', true) . '</p>'; ?>
+				<?php if (get_post_meta($order->get_id(), 'envios', true)) : ?>
+					<?php $envios_value = [
+						'' => 'Selecciona una empresa',
+						'envio_1' => 'MRW',
+						'envio_2' => 'Domesa',
+						'envio_3' => 'Zoom',
+						'envio_4' => 'Tealca',
+					];
+					if ($envios_value[get_post_meta($order->get_id(), 'envios', true)] !== 'Selecciona una empresa') {
+					?>
+
+						<p class="woocommerce-customer-details--envio"><?php echo esc_html($envios_value[get_post_meta($order->get_id(), 'envios', true)]); ?></p>
+
+					<?php
+					}
+
+					?>
+
+				<?php endif; ?>
+
+				<?php if (get_post_meta($order->get_id(), 'retiro', true)) : ?>
+					<?php $retiro_value = [
+						'' => 'Selecciona una opción',
+						'retiro_1' => 'Guick (Empresa de Delivery)',
+						'retiro_2' => 'Oficina (Cocconut Center, Lecheria)',
+					];
+					if ($retiro_value[get_post_meta($order->get_id(), 'retiro', true)] !== 'Selecciona una opción') {
+					?>
+
+						<p class="woocommerce-customer-details--retiro"><?php echo esc_html($retiro_value[get_post_meta($order->get_id(), 'retiro', true)]); ?></p>
+
+					<?php
+					}
+
+					?>
+
+				<?php endif; ?>
+			</address>
+
+			<?php if ($show_shipping) : ?>
+
+			</div><!-- /.col-1 -->
+
+			<div class="woocommerce-column woocommerce-column--2 woocommerce-column--shipping-address col-2">
+				<h2 class="woocommerce-column__title"><?php esc_html_e('Shipping address', 'woocommerce'); ?></h2>
+				<address>
+					<?php echo wp_kses_post($order->get_formatted_shipping_address(esc_html__('N/A', 'woocommerce'))); ?>
+				</address>
+			</div><!-- /.col-2 -->
+
+		</section><!-- /.col2-set -->
 
 	<?php endif; ?>
 
-	<?php do_action( 'woocommerce_order_details_after_customer_details', $order ); ?>
+	<?php do_action('woocommerce_order_details_after_customer_details', $order); ?>
 
 </section>

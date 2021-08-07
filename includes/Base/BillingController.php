@@ -80,10 +80,17 @@ class BillingController
     ];
 
     protected $retiro_value = [
-        '' => 'Selecciona una opcion',
-        'retiro_1' => 'Guick',
-        'retiro_2' => 'Oficina',
+        '' => 'Selecciona una opción',
+        'retiro_1' => 'Guick (Empresa de Delivery)',
+        'retiro_2' => 'Oficina (Cocconut Center, Lecheria)',
     ];
+
+    protected $fees = array(
+        'Barcelona' => 3,
+        'Lechería' => 2,
+        'Guanta' => 5,
+        'Puerto La Cruz' => 3,
+    );
 
     public function register()
 	{
@@ -101,7 +108,7 @@ class BillingController
         add_filter( 'woocommerce_checkout_fields' , [$this,'custom_override_checkout_fields_ek'], 99 );
         
 
-        add_filter('woocommerce_billing_fields', [$this,'wpb_custom_billing_fields']);
+        // add_filter('woocommerce_billing_fields', [$this,'wpb_custom_billing_fields']);
 
         add_filter( 'woocommerce_order_formatted_billing_address' , [$this,'woo_reorder_billing_fields'], 10, 2 );
 
@@ -110,6 +117,12 @@ class BillingController
         add_action( 'woocommerce_admin_order_data_after_billing_address', [$this,'my_custom_checkout_field_display_admin_order_meta'], 10, 1 );
 
         // add_action('woocommerce_checkout_process', [$this,'my_custom_checkout_field_process']);
+
+        add_action( 'woocommerce_cart_calculate_fees', [$this,'guick_fee']);
+        add_filter( 'woocommerce_checkout_posted_data', [$this,'add_custom_checkout_data_to_order_data_array'], 10, 2 );
+
+        add_action( 'woocommerce_checkout_update_order_meta', [$this,'save_custom_checkout_data_in_order_metadata'], 10, 2 );
+
     
 	}
 
@@ -147,43 +160,95 @@ class BillingController
             echo '<p id ="rew"><strong>'.__('Empresa de envio').':</strong> ' . $this->envios_value[get_post_meta( $order->get_id(), 'envios', true )] . '</p>';
         }
 
-        echo '<p><strong>'.__('Codigo Documento').':</strong> <br/>' . $this->document_value[get_post_meta( $order->get_id(), 'codigo_documento', true )] . '</p>';
+        echo '<p><strong>'.__('Tipo de documento').':</strong> <br/>' . $this->document_value[get_post_meta( $order->get_id(), 'codigo_documento', true )] . '</p>';
 
-        if ($this->envios_value[get_post_meta( $order->get_id(), 'envios', true )] !== 'Selecciona una opcion') {
+        if ($this->envios_value[get_post_meta( $order->get_id(), 'envios', true )] !== 'Selecciona una opción') {
             echo '<p><strong>'.__('Retiro Por').':</strong> <br/>' . $this->retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] . '</p>';
         }
-        if ( get_post_meta( $order->get_id(), 'retiro', true ) ) {
-
-            $retiro_value = [
-                '' => 'Selecciona una opcion',
-                'retiro_1' => 'Guick',
-                'retiro_2' => 'Oficina',
-            ];  
-            $fees = array(
-                'Barcelona' => 3,
-                'Lechería' => 2,
-                'Guanta' => 5,
-                'Puerto La Cruz' => 3,
-            );
-            if ($retiro_value[get_post_meta( $order->get_id(), 'retiro', true )] === 'Guick' ) {
-                ?>
-                    <p>
-                        <span><?php echo ( 'Extra Por Envio Guick: a ' . $order->get_billing_city() ); ?></span>
-                        <span><?php echo  '$' . $fees[$order->get_billing_city()]; ?></span>
-                    </p>
-                <?php
-            }
-        }
+      
     }
 
+    function get_wc_posted_data() {
+        $form_data = $_POST;
+    
+        if ( isset( $_POST['post_data'] ) ) {
+            parse_str( $_POST['post_data'], $form_data );
+        }
+    
+        return $form_data;
+    }
+
+    function guick_fee( $cart_object ) {
+        if ( is_admin() && ! defined( 'DOING_AJAX' ) || ! is_checkout() ) {
+            return;
+        }
+    
+        // Only trigger this logic once.
+        if ( did_action( 'woocommerce_cart_calculate_fees' ) >= 2 ) {
+            return;
+        }	
+    
+        $form_data = $this->get_wc_posted_data();
+    
+        // Do not calculate anything if we do not have our emergency field checked or no emergency level is provided.
+        if ( ! isset( $form_data['retiro']) || $form_data['retiro'] === 'retiro_2' ) {
+            return;
+        }
+    
+        // Store a mutiplier/coefficient to calculate the emergency fee.
+        $multipliers = $this->fees[$_POST['billing_city']];
+    
+        // if ( ! array_key_exists( $form_data['msk-urgency-level'], $multipliers ) ) {
+        //     return;
+        // }
+    
+        // Add the extra fee to the user cart.
+        WC()->cart->add_fee(
+            __( 'Envio por Guick' ),
+            $multipliers,
+            false
+        );
+    }
+
+    function add_custom_checkout_data_to_order_data_array( $data ) {
+        $custom_keys = [
+            'retiro',
+        ];
+    
+        foreach ( $custom_keys as $key ) {
+            if ( isset( $_POST[ $key ] ) ) {
+                $data[ $key ] = sanitize_text_field( $_POST[ $key ] );
+            }
+        }
+    
+        return $data;
+    }
+
+    function save_custom_checkout_data_in_order_metadata( $order_id, $data ) {
+        $custom_keys = [
+            'retiro',
+        ];
+    
+        $order = wc_get_order( $order_id );
+    
+        foreach ( $custom_keys as $key ) {
+            if ( isset( $data[ $key ] ) ) {
+                $order->add_meta_data( $key, $data[ $key ] );
+            }
+        }
+    
+        $order->save();
+    }
 
     // Our hooked in function - $fields is passed via the filter!
     function custom_override_checkout_fields_xd( $fields ) {
-        // $fields['billing']['billing_company']['class'][0] = 'form-row-first';
+        $fields['billing']['billing_company']['priority'] = 160 ;
+        $fields['billing']['billing_company']['class'][3] = 'none' ;
         $fields['billing']['billing_country']['class'][1] = 'form-row-first';
         $fields['billing']['billing_phone']['class'][2] = 'form-row-first';
         $fields['billing']['billing_email']['class'][1] = 'form-row-last';
         $fields['billing']['billing_email']['priority'] = 130 ;
+        $fields['billing']['billing_postcode']['priority'] = 90 ;
 
         $fields['billing']['envios'] = array(
             'required'    => false,
@@ -199,7 +264,7 @@ class BillingController
             'required'    => false,
             'clear'       => false,
             'type'        => 'select',
-            'label'       => __('Retiro por', 'woocommerce'),
+            'label'       => __('Recibir por', 'woocommerce'),
             'priority'    => 140,
             'class'       => array('form-row-wide', 'retiro','none'),
             'options'     => $this->retiro_value

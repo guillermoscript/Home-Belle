@@ -142,7 +142,7 @@ div.drop-tilte {
     margin-right: 34% !important;
 }
 
-#step-2 .drop-cont-table {
+#step-2 .drop-cont-table #customer_details {
     position: relative;
 }
 
@@ -416,7 +416,7 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 }
 
 #backStepTwo {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
 }
@@ -434,6 +434,14 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 #type_shipping_field div {
     font-size: .7rem;
 }
+
+#billing_postcode_field {
+    width: 96%;
+}
+
+/* #type_shipping_field {
+    display: none;
+} */
 
 /* ------------------------------- FIN CAJA DE PAGOS --------------------------------- */
 
@@ -463,13 +471,17 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 
 
 
-@media only screen and (max-width: 1441px) {
+@media only screen and (min-width: 1441px) {
     .drop-tilte {
         padding: 20px 10px 0px;
     }
 
     .woocommerce-checkout #payment ul.payment_methods li {
         min-width: 24% !important;
+    }
+
+    #billing_phone_field label, #billing_cid_field label {
+        transform: translateX(-106px);
     }
 }
 
@@ -483,9 +495,22 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
         font-size: 15px;
     }
 
+    #footer {
+        margin-top: 35% !important;
+    }
+
+
+    #type_shipping_field p {
+        font-size: .8rem;
+    }
+
+    #place_order {
+        width: 41% !important;
+    }
+
     .total_orden_payment {
         right: 3%;
-        width: 26%;
+        width: 35%;
     }
 
     #step-1 .drop-cont-table, #step-2 .drop-cont-table {
@@ -530,7 +555,7 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 
 }
 
-@media only screen and (max-width: 767px)  {
+@media only screen and (max-width: 767px) {
 
     #main {
         min-height: 100vh;
@@ -625,6 +650,11 @@ div#total_orden li.tax-rate.currency.hidden.tax-rate-ve-iva-16-1 {
 		  width: 100%;
 		  font-size: 14px;
 	}
+
+
+    #billing_postcode_field {
+        width: 100%;
+    }
 
 
     #billing_phone_field label, #billing_cid_field label {

@@ -243,7 +243,7 @@ class WoocommerceConfig
         $children = get_categories( array( 
             'parent'      => $term_id,
             'taxonomy'      => 'product_cat',
-            'hide_empty'    => true,
+            'hide_empty'    => true,    
         ) );
         return ( $children );
     }

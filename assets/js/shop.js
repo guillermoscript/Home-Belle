@@ -1,8 +1,8 @@
-jQuery(window).ready(function() {
+jQuery(window).ready(function () {
 
     addIconToCategoryWidget(changeIconsOfCategoryWidget)
     moveFilterToSideBarOfMovile()
-
+    moveFilters()
 });
 jQuery('.widget_price_filter #min_price').attr('placeholder', 'Monto Min.')
 jQuery('.widget_price_filter #max_price').attr('placeholder', 'Monto Max.')
@@ -10,13 +10,13 @@ jQuery('.widget_price_filter .button').text('Ir')
 jQuery('.widget_price_filter .price_slider_amount').addClass('button-send')
 
 
-function addIconToCategoryWidget(callBack) {   
+function addIconToCategoryWidget(callBack) {
     let parentDivs = document.getElementsByClassName('cat-parent')
     for (let divIndex = 0; divIndex < parentDivs.length; divIndex++) {
         const div = parentDivs[divIndex]
-        div.classList.contains('cat-parent') 
-        ? div.children[0].insertAdjacentHTML('afterend','<i class="fas fa-minus pointer"></i>') 
-        : div.children[0].insertAdjacentHTML('afterend','<i class="fas fa-plus pointer"></i>')
+        div.classList.contains('cat-parent')
+            ? div.children[0].insertAdjacentHTML('afterend', '<i class="fas fa-minus pointer"></i>')
+            : div.children[0].insertAdjacentHTML('afterend', '<i class="fas fa-plus pointer"></i>')
     }
     callBack()
 }
@@ -25,17 +25,18 @@ function moveFilterToSideBarOfMovile() {
     let content = document.getElementById('woocommerce_price_filter-3')
     let filter = document.getElementById('woocommerce_product_categories-3')
 
+
     document.querySelector('.oceanwp-off-canvas-sidebar').appendChild(filter)
     document.querySelector('.oceanwp-off-canvas-sidebar').appendChild(content)
 }
 
-function changeIconsOfCategoryWidget() {    
+function changeIconsOfCategoryWidget() {
     let icons = document.querySelectorAll('.cat-parent .fas')
-    function help(parent,flag) {
+    function help(parent, flag) {
         for (let i = 0; i < parent.length; i++) {
             const child = parent[i]
-            if  (child.classList.contains('children')) {
-                flag ? fadeIn(child,'block') : fadeOut(child)
+            if (child.classList.contains('children')) {
+                flag ? fadeIn(child, 'block') : fadeOut(child)
             }
         }
     }
@@ -53,6 +54,25 @@ function changeIconsOfCategoryWidget() {
         })
     })
 }
+
+function moveFilters() {
+    let filter1 = document.querySelector('#woocommerce_layered_nav-3')
+    let filter2 = document.querySelector('#woocommerce_layered_nav-4')
+    let filter3 = document.querySelector('#woocommerce_layered_nav-2')
+    let mobileSidebar = document.querySelector('.oceanwp-off-canvas-sidebar')
+    let filterSize = document.getElementById('woocommerce_layered_nav-2')
+    let filterColor = document.getElementById('woocommerce_layered_nav-4')
+
+    if (jQuery(window).width() < 768) {
+        mobileSidebar.appendChild(filter1)
+        mobileSidebar.appendChild(filter2)
+        mobileSidebar.appendChild(filter3)
+
+        mobileSidebar.appendChild(filterSize)
+        mobileSidebar.appendChild(filterColor)
+    }
+}
+
 // ** FADE OUT FUNCTION **
 function fadeOut(el) {
     el.style.opacity = 1;
@@ -78,6 +98,6 @@ function fadeIn(el, display) {
     })();
 };
 
-jQuery('.widget_price_filter #min_price, .widget_price_filter #max_price').change(function() {
+jQuery('.widget_price_filter #min_price, .widget_price_filter #max_price').change(function () {
     jQuery(this).siblings('.button').click()
 })

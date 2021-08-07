@@ -56,6 +56,11 @@
     color: white !important;
 }
 
+#main #image_header {
+    height: 300px;
+    object-fit: cover;
+}
+
 
 /************************************************************************
 **                                                                     **
@@ -70,7 +75,7 @@
 }
 
 #right-sidebar {
-    max-height: 980px;
+    max-height: 1280px;
     margin-left: -5.5%;
 }
 
@@ -84,11 +89,12 @@
 }
 
 #right-sidebar .widget-title,
-.oceanwp-off-canvas-sidebar .widget-title {
+.oceanwp-off-canvas-sidebar .widget-title,
+.wfpTitle.wfpClickable {
     border: 0;
     padding: 0;
     margin: 0;
-    color: black;
+    color: black !important;
     font-size: 1.625em;
     font-weight: 600;
     text-transform: capitalize;
@@ -124,9 +130,65 @@
 }
 
 #right-sidebar .sidebar-box li a,
-.oceanwp-off-canvas-sidebar .sidebar-box li a {
+.oceanwp-off-canvas-sidebar .sidebar-box li a,
+.wpfFilterWrapper .wpfFilterTaxNameWrapper {
     font-size: 1.125em;
     font-weight: 400;
+}
+
+
+.wpfFilterWrapper .wfpDescription {
+    color: #333;
+}
+
+.wpfFilterButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.general-checkbox-facet .star {
+    display: inline-block;
+    width: 16px;
+    height: 18px;
+    margin-left: 3px;
+    background-repeat: no-repeat;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+#wpfBlock_1 .wpfFilterVerScroll li label {
+    display: flex !important;
+    align-items: center;
+}
+
+[data-term-id] li label span {
+    margin-top: 2% !important;
+}
+
+#wpfBlock_1 .star-rating {
+    margin-left: 10% !important;
+}
+
+.woocommerce-products-header {
+    padding: 5%;
+}
+
+.wpfFilterButton.wpfButton {
+    height: auto !important;
+    background-color: black;
+    text-transform: capitalize;
+    border-radius: 5px;
+    padding: 0 0.5em;
+    color: white;
+    min-height: 37px !important;
+}
+
+.widget_layered_nav li a::before {
+    top: 21%;
+}
+
+.woocommerce .widget_layered_nav li.chosen a {
+    padding-left: 7%;
 }
 
 #right-sidebar .widget_product_categories li>a,
@@ -206,10 +268,13 @@
     top: 3.5px !important;
     bottom: 3.5px !important;
     background-color: #8b8887 !important;
+    /* height: 1px !important;
+    padding: 0px !important; */
 }
 
 .widget_price_filter .ui-slider .ui-slider-handle {
     background-color: #E4C5A9 !important;
+    /* border: none !important; */
 }
 
 .widget_price_filter .price_label,

@@ -65,11 +65,14 @@ function checkWhatStepIs(ev) {
     return events[ev.target.id]()
 }
 
+let isInStepThree = false
 function thingsToDoBeforMoveStep(e) {
     e.preventDefault()
     if (document.getElementById('payment').classList.contains('none')) {
         document.getElementById('payment').classList.remove('none')
     }
+    
+    isInStepThree = true
     jQuery('form.checkout').validate().destroy()
     let isNewUser = false
     let retiroIsDisable = false
@@ -108,18 +111,90 @@ function thingsToDoBeforMoveStep(e) {
     }, "Value must not equal arg.");
 
 
+    removeAllHtmlWithThisClass('woocommerce-NoticeGroup')
+
     validate_billing(isNewUser, retiroIsDisable)
     if (document.getElementById('ship-to-different-address-checkbox').checked) {
         jQuery('form.checkout').validate().destroy()
         validate_shipping(isNewUser)
         if (jQuery(idOfPasswordAndEmail + idOfBillings + ',' + idOfShippings).valid()) {
-            checkWhatStepIs(e)
+            if (validated()) {
+                checkWhatStepIs(e)
+            }
         }
     } else {
         if (jQuery(idOfPasswordAndEmail + idOfRetiro + idOfBillings).valid()) {
-            checkWhatStepIs(e)
+            if (validated()) {
+                checkWhatStepIs(e)
+            }
         }
     }
+}
+
+function showCompanyInput() {
+    let selectIdn = document.getElementById('codigo_documento');
+
+    selectIdn.addEventListener('change', function () {
+        if (this.value === 'option_3') {
+            document.getElementById('billing_company_field').classList.remove('none')
+        } else {
+            document.getElementById('billing_company_field').classList.add('none')
+        }
+    })
+}
+
+
+function removeAllHtmlWithThisClass(clase) {
+    if (document.getElementsByClassName(clase)) {
+        for (let i = 0; i < document.getElementsByClassName(clase).length; i++) {
+            document.getElementsByClassName(clase)[i].remove();
+        }
+    }
+}
+
+
+function validated() {
+    let arrayOfErrors = [];
+
+    if (validationIdn('billing_cid') === 'cantidad no aceptada') {
+        arrayOfErrors.push('Error la cantidad de digitos no es aceptada en la Cédula, por favor corrijalo')
+    }
+    if (validationIdn('billing_cid') === 'no hay nada') {
+        arrayOfErrors.push('Error no hay nada en la Cédula, por favor corrijalo')
+    }
+    if (validationIdn('billing_cid') === 'hay una letra') {
+        arrayOfErrors.push('Error hay letras en la Cédula, por favor corrijalo')
+    }
+    if (validacionCellphone('billing_phone') === 'no es un numero valido') {
+        arrayOfErrors.push('Error No es un numero valido, por favor ingrese un numero de venezuela valido, Ejemplo: 0424 123 4567');
+    }
+
+    if (validacionCellphone('billing_phone') === 'no estan en los metodos de pago') {
+        arrayOfErrors.push('Error No es un metodo disponible el que puso, por favor ingrese uno de los disponibles')
+    }
+
+    if (arrayOfErrors.length === 0) {
+        return true
+    } else {
+        showError(arrayOfErrors)
+        return false
+    }
+}
+
+function showError(mensaje) {
+
+    jQuery('.woocommerce-notices-wrapper').prepend(`
+        <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">
+            <ul class="woocommerce-error" role="alert">
+            </ul>
+        </div>
+    `);
+
+    mensaje.forEach(elem => {
+        document.getElementsByClassName('woocommerce-error')[0].insertAdjacentHTML('afterbegin', '<li>' + elem + '</li>')
+    })
+    jQuery('html, body').animate({ scrollTop: 0 }, 'slow');
+
 }
 
 function controllerOfSteps() {
@@ -163,10 +238,29 @@ function observerW() {
             //     // document.querySelector('#total_orden').appendChild(document.querySelector('#type_shipping_field'))
             // }
             if (mutation.target === document.getElementById('select2-billing_city-container')) {
-                if (!document.getElementById('ui-bloq')) {
-                    document.querySelector('#step-2 .drop-cont-table').insertAdjacentHTML('beforeend', `
-                        <div id="ui-bloq" class="blockUI blockOverlay" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; opacity: 0.6; cursor: default; position: absolute;"></div>
-                    `)
+                // jQuery('body').trigger('update_checkout');
+                // if (!document.getElementById('ui-bloq')) {
+                //     document.querySelector('#step-2 .drop-cont-table #customer_details').insertAdjacentHTML('beforeend', `
+                //         <div id="ui-bloq" class="blockUI blockOverlay" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; opacity: 0.6; cursor: default; position: absolute;"></div>
+                //     `)
+                // }
+                
+                if (mutation.addedNodes[0]) {
+                    if (mutation.addedNodes[0].data in citys) {
+
+                        document.getElementById('envios_field').classList.add('none')
+                        document.getElementById('retiro_field').classList.remove('none')
+                        console.log('yes city');
+                        if (document.getElementById('retiro').value === 'retiro_1') {
+                            jQuery('#type_shipping_field [data-title]')[0].innerText = `costo de ${getCitySelected(document.getElementById('billing_city').value)}$ adicionales al total.`
+                        } else if (document.getElementById('retiro').value === 'retiro_2') {
+                            jQuery('#type_shipping_field [data-title]')[0].innerText = `Gratis`
+                        }
+                    } else {
+                        document.getElementById('envios_field').classList.remove('none')
+                        document.getElementById('retiro_field').classList.add('none')
+                        jQuery('#type_shipping_field [data-title]')[0].innerText = `COBRO A DESTINO (Selecciona una empresa de envio)`
+                    }
                 }
             }
         })
@@ -227,66 +321,9 @@ jQuery(document).ready(function () {
     jQuery('.select2-selection__arrow').html('<svg xmlns="http://www.w3.org/2000/svg" width="12.298" height="4.852" viewBox="0 0 12.298 4.852"><path id="Path_91" data-name="Path 91" d="M2888.061,400l5.65,3.831,6.1-3.831" transform="translate(-2887.781 -399.577)" fill="none" stroke="#707070" stroke-width="1"/></svg>')
 
     observerW()
-    let ResponseEqualToMessageOne = false
-    let flag2 = false
-    let mensaje = `Cobro a destino`
-    let mensaje2 = `No hay opciones de métodos de envío disponibles. Por favor, asegúrate de que has introducido correctamente tu dirección, o contáctanos si necesitas ayuda.`
-
-    jQuery(document).ajaxComplete(function (event, request, settings) {
-
-        // elimino los duplicados que puedna venir del ajax 
-        if (document.getElementById('type_shipping_field').children.length > 1) {
-
-            for (let i = 0; i < document.getElementById('type_shipping_field').children.length; i++) {
-                const element = document.getElementById('type_shipping_field').children[i];
-                element.remove()
-            }
-        }
-
-
-        if (/type_shipping_field/ig.test(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])) {
-
-
-            if (document.getElementById('ui-bloq')) {
-                document.getElementById('ui-bloq').remove()
-            }
-            // la respuesta del json la incrusto 
-            let typeOfShipping = jQuery(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"])
-            console.log(request.responseJSON.fragments[".woocommerce-checkout-review-order-table"]);
-            jQuery('#type_shipping_field').append(typeOfShipping.find('#type_shipping_field').html())
-            // el duplicado lo remuevo
-            console.log(typeOfShipping.find('[data-title]')[0].innerText.trim());
-            if (typeOfShipping.find('[data-title]')[0].innerText.trim() === mensaje) {
-                ResponseEqualToMessageOne = true
-                document.getElementById('envios_field').classList.remove('none')
-                document.getElementById('retiro_field').classList.add('none')
-                document.querySelector('.order-total bdi').innerText = TOTAL
-                document.querySelector('#total_orden li.total-bf p:last-child').innerText = TOTAL_BF
-            } else if (mensaje2 === typeOfShipping.find('[data-title]')[0].innerText.trim()) {
-                document.getElementById('envios_field').classList.remove('none')
-                document.getElementById('retiro_field').classList.add('none')
-                ResponseEqualToMessageOne = true
-                flag2 = true
-            } else {
-                document.getElementById('envios_field').classList.add('none')
-                document.getElementById('retiro_field').classList.remove('none')
-
-                ResponseEqualToMessageOne = false
-                flag2 = false
-            }
-
-            document.querySelector('#type_shipping_field > div').remove()
-        }
-        if (ResponseEqualToMessageOne) {
-            if (flag2) {
-                jQuery('[data-title]')[0].innerText = `${mensaje} (Selecciona una empresa de envio)`
-                return
-            }
-            jQuery('[data-title]')[0].innerText += ` (Selecciona una empresa de envio)`
-        }
-
-    });
-
+    
+    // move postal code to the end 
+    document.getElementById('billing_city_field').insertAdjacentElement('afterend', document.getElementById('billing_postcode_field'))
 
     document.querySelectorAll('.woocommerce-notices-wrapper')[0].remove()
 
@@ -294,58 +331,64 @@ jQuery(document).ready(function () {
 
     // document.getElementById('payment').classList.remove('none')
     document.querySelector('#step-3 .drop-cont-table.payment-cont').append(document.getElementById('payment'))
-    console.log('sss');
 
     removeAndAddCssClassesToInputsToLookGood()
 
+    showCompanyInput()
 
     changeSelectControllerOfwhatTypeOfShippingIsForCitysThatAceptsGuick()
-    // addBlockquerToFormWhenCitysChange()
+    jQuery(document).ready(function ($) {
+        $('form.checkout').on('change', '#retiro', function (e) {
+            $('body').trigger('update_checkout');
+            // selectEventHandler(e)
+        });
+    });
+
+    jQuery('body').on('updated_checkout', removeHiddenClassInStepThree)
+   
+    if (document.getElementById('billing_city').value in citys) {
+        document.getElementById('retiro_field').classList.remove('none')
+    } else {
+        document.getElementById('envios_field').classList.remove('none')
+    }
 })
 
-function addBlockquerToFormWhenCitysChange() {
-
-    let select = document.getElementById('billing_city')
-    console.log('asdasdasasaaaAAA');
-
-    select.addEventListener('change', e => {
-        console.log(e);
-        e.preventDefault()
-        console.log('object');
-        document.querySelector('#step-2 .drop-cont-table').insertAdjacentHTML('beforeend', `
-            <div id="ui-bloq" class="blockUI blockOverlay" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; opacity: 0.6; cursor: default; position: absolute;"></div>
-        `)
-    })
-
+function removeHiddenClassInStepThree() {
+    if (isInStepThree) {
+        document.getElementById('payment').classList.remove('none')
+    }
 }
 
 const TOTAL = document.querySelector('.order-total bdi').innerText
 let TOTAL_BF = document.querySelector('#total_orden li.total-bf p:last-child').innerText
+const citys = {
+    Guanta: '5',
+    Lechería: '2',
+    Barcelona: '3',
+    "Puerto La Cruz": '3'
+}
+
+const getCitySelected = citySelected => citys[citySelected]
+function selectEventHandler(e) {
+    console.log(e.target)
+    if (e.target.value === 'retiro_2') {
+        jQuery('#type_shipping_field [data-title]')[0].innerText = `Gratis`
+        document.querySelector('.order-total bdi').innerText = TOTAL
+        document.querySelector('#total_orden li.total-bf p:last-child').innerText = TOTAL_BF
+    } else if (e.target.value === 'retiro_1') {
+
+        jQuery('#type_shipping_field [data-title]')[0].innerText = `costo de ${getCitySelected(document.getElementById('billing_city').value)}$ adicionales al total.`
+
+        let valueOfShippingRateOfGuick = addShippingRateOfGuick(getCitySelected(document.getElementById('billing_city').value))
+        document.querySelector('.order-total bdi').innerText = '$' + valueOfShippingRateOfGuick.newTotalValueInDolars
+        document.querySelector('#total_orden li.total-bf p:last-child').innerText = valueOfShippingRateOfGuick.newTotalValueInBf
+    }
+}
+
 function changeSelectControllerOfwhatTypeOfShippingIsForCitysThatAceptsGuick() {
 
     let select = document.getElementById('retiro')
-    const citys = {
-        Guanta: '5',
-        Lechería: '2',
-        Barcelona: '3',
-        "Puerto La Cruz": '3'
-    }
-
-    const getCitySelected = citySelected => citys[citySelected]
-
-    select.addEventListener('change', e => {
-        console.log(e.target)
-        if (e.target.value === 'retiro_2') {
-            jQuery('[data-title]')[0].innerText = `Gratis`
-            document.querySelector('.order-total bdi').innerText = TOTAL
-            document.querySelector('#total_orden li.total-bf p:last-child').innerText = TOTAL_BF
-        } else if (e.target.value === 'retiro_1') {
-            jQuery('[data-title]')[0].innerText = `costo de ${getCitySelected(document.getElementById('billing_city').value)}$ adicionales al total.`
-            let valueOfShippingRateOfGuick = addShippingRateOfGuick(getCitySelected(document.getElementById('billing_city').value))
-            document.querySelector('.order-total bdi').innerText = '$' + valueOfShippingRateOfGuick.newTotalValueInDolars
-            document.querySelector('#total_orden li.total-bf p:last-child').innerText = valueOfShippingRateOfGuick.newTotalValueInBf
-        }
-    })
+    select.addEventListener('change', selectEventHandler)
 }
 
 function addShippingRateOfGuick(valueOfCity) {
@@ -358,7 +401,6 @@ function addShippingRateOfGuick(valueOfCity) {
     let cleanedRateBs = rate.replaceAll('.', '').replace(' BsS', '')
     let cleanedTotalBF = TOTAL_BF.replaceAll('.', '').replace(' BsS', '').replaceAll(',', '.')
     let valueOfCityInBf = parseFloat(valueOfCity) * parseFloat(cleanedRateBs)
-    // console.log(cleanedRateBs, cleanedTotalBF, valueOfCityInBf);
 
     let newTotalValueInDolars = parseFloat((parseFloat(valueOfCity) + parseFloat(total)).toFixed(2))
     let newTotalValueInBf = new Intl.NumberFormat("de-DE").format(parseFloat((parseFloat(cleanedTotalBF) + parseFloat(valueOfCityInBf)).toFixed(2)))
@@ -551,3 +593,36 @@ function info_address() {
     jQuery('address').html(address)
 }
 
+
+function validacionCellphone(id) {
+    let cellphone = document.getElementById(id);
+
+    if (cellphone === null) return '';
+
+    if (/(^(\+58\s?)?(\d{3}|\d{4})([\s\-]?\d{3})([\s\-]?\d{4})$)/g.test(cellphone.value)) {
+        return cellphone.value.replace(/(\s)|([\(,\),-])|(\+)/g, '')
+    } else {
+        return 'no es un numero valido'
+    }
+}
+
+
+function validationIdn(id) {
+    let input = document.getElementById(id);
+
+    if (input === null) return '';
+    if (/[a-zA-Z]/gi.test(input.value)) {
+        return 'hay una letra'
+    }
+    if (input.value.length >= 7) {
+        // if (input.value.length === 10 || input.value.length === 8 ) {
+        // if (/(\d{1,2})|(\.\d{3})/gi.test(input.value)) {
+        if (/^\d+$/gi.test(input.value)) {
+            return input.value
+        }
+    } else if (input.value.length === 0) {
+        return 'no hay nada'
+    } else {
+        return 'cantidad no aceptada'
+    }
+}
